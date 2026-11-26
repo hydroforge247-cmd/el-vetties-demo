@@ -1,0 +1,54 @@
+/* EL'Vetties v5 — House Craft Standard v5.0 Tokens (Braai Wagon + YODA + Highveld Estate) */
+@font-face {
+  font-family: 'Oswald';
+  src: url('../fonts/Oswald-latin.woff2') format('woff2');
+  font-weight: 200 700;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Fraunces';
+  src: url('../fonts/Fraunces-latin.woff2') format('woff2');
+  font-weight: 400 800;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Outfit';
+  src: url('../fonts/Outfit-latin.woff2') format('woff2');
+  font-weight: 300 800;
+  font-style: normal;
+  font-display: swap;
+}
+
+:root {
+  /* Core Highveld Palette — Turf Emerald, Sunlit Cream, Thatch Gold & Umbrella Berry */
+  --forest: #0C2618;       /* Primary rich dark ground (#reel, #pit, #nights, solid header) */
+  --forest-deep: #071910;  /* Hero base & footer */
+  --forest-card: #133522;  /* Elevated dark cards */
+  --cream: #FBF6EC;        /* Primary daylight ground */
+  --paper: #F2E9D8;        /* Secondary warm paper ground */
+  --white: #FFFFFF;
+
+  --ink: #17201A;          /* Primary dark ink on cream/white */
+  --muted: #3E4B43;        /* AA-safe muted ink on translucent cream/paper (>= 5.9:1) */
+  --light: #FCF9F2;        /* Primary ink on dark */
+  --light-soft: #D3DFD6;   /* Secondary ink on dark (>= 11:1) */
+
+  --gold: #E8AE38;         /* Warm thatch gold accent on dark */
+  --gold-lt: #FFE099;      /* Soft highlight on dark */
+  --ember: #8F2F06;        /* AA-safe warm ember on translucent cream/paper (>= 5.6:1) */
+  --ember-bright: #E66424; /* Vibrant ember on dark */
+  --berry: #A81632;        /* Umbrella crimson accent */
+  --wa: #16773F;           /* WhatsApp green conversion CTA */
+  --wa-hover: #0F6132;
+
+  --head: 'Oswald', 'Arial Narrow', Impact, sans-serif;
+  --serif: 'Fraunces', Georgia, serif;
+  --body: 'Outfit', system-ui, -apple-system, sans-serif;
+
+  --r: 18px;
+  --r-lg: 24px;
+  --wrap: 1180px;
+  --pad: clamp(18px, 4.5vw, 40px);
+}

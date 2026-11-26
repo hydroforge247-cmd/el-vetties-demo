@@ -1,0 +1,101 @@
+/* NFC house layer for EL'Vetties: loader, day/night switch, night palette, small polish. */
+
+/* ---------- Loader ---------- */
+html.ld-on, html.ld-on body { overflow: hidden; }
+.ld {
+  position: fixed; inset: 0; z-index: 9999; display: grid; place-items: center; text-align: center;
+  background: radial-gradient(120% 80% at 50% 38%, #1B4A2E 0%, var(--forest-deep) 62%);
+  color: var(--light); transition: opacity .6s ease, visibility .6s;
+}
+.ld-out { opacity: 0; visibility: hidden; }
+.ld-inner { display: grid; justify-items: center; gap: 14px; padding: 24px; }
+.ld-crest {
+  width: 104px; height: 104px; border-radius: 50%; display: grid; place-items: center;
+  background: var(--forest-deep); border: 3px solid var(--gold);
+  box-shadow: 0 0 0 8px rgba(232, 174, 56, .12), 0 0 48px rgba(232, 174, 56, .25);
+  font-family: var(--head); font-weight: 700; font-size: 2.3rem; color: var(--gold-lt);
+  animation: ld-breathe 2.4s ease-in-out infinite;
+}
+@keyframes ld-breathe { 50% { box-shadow: 0 0 0 14px rgba(232, 174, 56, .06), 0 0 64px rgba(232, 174, 56, .35); } }
+.ld-name { margin: 0; font-family: var(--head); font-size: 1.7rem; letter-spacing: .08em; text-transform: uppercase; }
+.ld-tag { margin: -8px 0 6px; font-size: .78rem; letter-spacing: .22em; text-transform: uppercase; color: var(--gold); }
+
+/* the putt: ball rolls along the green to the cup as things load */
+.ld-green { position: relative; width: min(260px, 70vw); height: 34px; }
+.ld-green::before { /* the green */
+  content: ""; position: absolute; left: 0; right: 0; bottom: 6px; height: 8px; border-radius: 99px;
+  background: linear-gradient(90deg, #2F7D46, #4CAF6A);
+}
+.ld-cup { position: absolute; right: 6px; bottom: 4px; width: 22px; height: 9px; border-radius: 50%; background: #06140C; }
+.ld-flag { position: absolute; right: 16px; bottom: 9px; width: 2px; height: 30px; background: var(--light-soft); }
+.ld-flag::after {
+  content: ""; position: absolute; left: 2px; top: 0; width: 16px; height: 11px; background: var(--berry);
+  clip-path: polygon(0 0, 100% 50%, 0 100%); transform-origin: left center; animation: ld-wave 1.2s ease-in-out infinite;
+}
+@keyframes ld-wave { 50% { transform: scaleX(.75) skewY(4deg); } }
+.ld-ball {
+  --p: 0; position: absolute; left: 0; bottom: 13px; width: 14px; height: 14px; border-radius: 50%;
+  background: radial-gradient(circle at 35% 30%, #fff 0 40%, #D9DED9 75%, #AEB5AE);
+  box-shadow: 0 2px 3px rgba(0, 0, 0, .4);
+  transform: translateX(calc(var(--p) * (min(260px, 70vw) - 36px))) rotate(calc(var(--p) * 900deg));
+}
+.ld-sink .ld-ball { animation: ld-drop .5s cubic-bezier(.5, 0, .9, .4) forwards; }
+@keyframes ld-drop {
+  from { transform: translateX(calc(min(260px, 70vw) - 36px)); }
+  to { transform: translateX(calc(min(260px, 70vw) - 31px)) translateY(9px) scale(.55); opacity: 0; }
+}
+.ld-pct { font-family: var(--head); font-size: 1.1rem; letter-spacing: .1em; color: var(--gold-lt); font-variant-numeric: tabular-nums; }
+@media (prefers-reduced-motion: reduce) { .ld-crest, .ld-flag::after { animation: none; } }
+
+/* ---------- Sun / moon switch ---------- */
+.theme-btn {
+  width: 44px; height: 44px; border-radius: 50%; flex-shrink: 0; cursor: pointer; padding: 0;
+  display: grid; place-items: center; color: var(--gold-lt);
+  background: rgba(7, 25, 16, .56); border: 1.5px solid rgba(255, 224, 153, .55);
+  transition: transform .18s ease, background .18s ease;
+}
+.theme-btn:hover, .theme-btn:focus-visible { transform: translateY(-2px); background: rgba(7, 25, 16, .8); }
+.theme-btn svg { grid-area: 1 / 1; width: 22px; height: 22px; transition: transform .5s cubic-bezier(.65, 0, .35, 1), opacity .3s; }
+.theme-btn .moon { opacity: 0; transform: rotate(-90deg) scale(.5); }
+[data-theme="night"] .theme-btn .sun { opacity: 0; transform: rotate(90deg) scale(.5); }
+[data-theme="night"] .theme-btn .moon { opacity: 1; transform: none; }
+::view-transition-old(root), ::view-transition-new(root) { animation: none; mix-blend-mode: normal; }
+.theme-fade body { transition: background-color .4s ease, color .4s ease; }
+@media (max-width: 420px) {
+  .brand-copy { display: none; }   /* room for the switch on small phones; the crest still reads EV */
+}
+
+/* ---------- Night palette ---------- */
+[data-theme="night"] {
+  --ink: #FCF9F2; --muted: #C9D6CD; --ember: #F4A261;
+  color-scheme: dark;
+}
+[data-theme="night"] body { background: #061109; }
+[data-theme="night"] .golf-bg-photo { filter: brightness(.34) saturate(.55) hue-rotate(18deg) contrast(1.1); }
+[data-theme="night"] .hero-bg img { filter: brightness(.55) saturate(.7) hue-rotate(12deg); }
+[data-theme="night"] .sec-cream, [data-theme="night"] .sec-paper { background: rgba(9, 28, 18, .88); }
+[data-theme="night"] :is(.tri-card, .menu-panel, .book-card, .rv-card, .info-card, .cnt-box, .info-chip, dialog.modal) {
+  background: var(--forest-card); border-color: rgba(255, 224, 153, .16); color: var(--ink);
+}
+[data-theme="night"] :is(.cnt-btn, .close-btn, .p-opt) { background: rgba(255, 255, 255, .06); color: var(--ink); border-color: rgba(255, 224, 153, .28); }
+[data-theme="night"] :is(.cat-btn[aria-selected="true"], .p-opt[aria-pressed="true"]) { background: var(--gold); color: var(--forest-deep); border-color: var(--gold); }
+[data-theme="night"] .btn-ghost { border-color: rgba(255, 224, 153, .4); }
+[data-theme="night"] .btn-ghost:hover { background: var(--gold-lt); color: var(--forest-deep); }
+
+/* ---------- Polish ---------- */
+.hero-sub { /* frosted "ice" box for text over the photo */
+  background: rgba(7, 25, 16, .32); border: 1px solid rgba(255, 255, 255, .16); border-radius: 16px;
+  padding: 12px 18px; -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px);
+}
+#mbar .btn-wa { background: var(--wa-hover); }
+.nfc-credit { margin: 14px 0 0; font-size: .8rem; color: var(--light-soft); opacity: .8; }
+.nfc-credit a { color: inherit; }
+html { -webkit-tap-highlight-color: transparent; }
+/* ember stays dark where it is a background (only ember *text* brightens at night) */
+[data-theme="night"] :is(.snd:not([aria-pressed="true"]), .btn-ember, .score-card) { background: #8F2F06; }
+/* laptops: keep the menu on one line */
+.nav a { white-space: nowrap; }
+@media (max-width: 1240px) { .nav a { padding: 0 8px; font-size: .84rem; } .brand-tag { display: none; } }
+@media (max-width: 1100px) { .nav li:nth-child(2) { display: none; } } /* "3D Reel" sits right under Highlights */
+[data-theme="night"] .pass-box { background: rgba(255, 255, 255, .07); border-color: rgba(255, 224, 153, .2); }
+.foot p a { display: inline-block; padding: 9px 0; }   /* 44px-ish tap rows on phones */

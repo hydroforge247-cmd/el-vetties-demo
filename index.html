@@ -1,0 +1,578 @@
+<!doctype html>
+<html lang="en-ZA" class="no-js">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>EL'Vetties Family Venue &amp; Elspark Golf Driving Range | Germiston</title>
+  <meta name="description" content="Grass golf driving range, thatched lapa, thin-crust pizzas, Sunday carvery and a kids' play area at 26 Sapele St, Elspark, Germiston.">
+  <meta property="og:title" content="EL'Vetties Family Venue &amp; Elspark Golf Driving Range">
+  <meta property="og:description" content="Driving range, lapa, pizza and Sunday carvery at 26 Sapele St, Elspark, Germiston.">
+  <meta property="og:image" content="https://hydroforge247-cmd.github.io/el-vetties-demo/img/hero.jpg">
+  <meta property="og:url" content="https://hydroforge247-cmd.github.io/el-vetties-demo/">
+  <meta property="og:type" content="website">
+  <meta name="robots" content="noindex,nofollow">
+  <link rel="canonical" href="https://hydroforge247-cmd.github.io/el-vetties-demo/">
+  <link rel="icon" type="image/svg+xml" href="favicon.svg">
+  <link rel="stylesheet" href="css/tokens.css">
+  <link rel="stylesheet" href="css/site.css">
+  <link rel="stylesheet" href="css/house.css">
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"Restaurant","name":"EL'Vetties Family Venue & Elspark Golf Driving Range","telephone":"+27824486870","sameAs":["https://www.facebook.com/therangeelspark"],"address":{"@type":"PostalAddress","streetAddress":"26 Sapele St, Elspark","addressLocality":"Germiston","postalCode":"1418","addressRegion":"Gauteng","addressCountry":"ZA"}}</script>
+  <script src="js/theme-init.js"></script>
+</head>
+<body>
+  <div class="ld" id="ld" role="status" aria-live="polite" aria-label="Loading EL'Vetties">
+    <div class="ld-inner">
+      <div class="ld-crest" aria-hidden="true">EV</div>
+      <p class="ld-name">EL'Vetties</p>
+      <p class="ld-tag">Teeing up your visit</p>
+      <div class="ld-green" aria-hidden="true"><span class="ld-cup"></span><span class="ld-flag"></span><span class="ld-ball"></span></div>
+      <span class="ld-pct">0%</span>
+    </div>
+  </div>
+  <a class="skip-link" href="#main">Skip to main content</a>
+  <div class="progress" aria-hidden="true"></div>
+  <img class="golf-bg-photo" id="golfBgPhoto" src="img/golf-bg.jpg" alt="" aria-hidden="true">
+  <canvas class="golf-field-bg" id="golfFieldBg" aria-hidden="true"></canvas>
+  <canvas class="ambient-canvas" id="ambientCanvas" aria-hidden="true"></canvas>
+
+  <header class="top" id="topHeader">
+    <div class="wrap top-inner">
+      <a class="brand" href="#home" aria-label="EL'Vetties home">
+        <span class="brand-crest" aria-hidden="true">EV</span>
+        <span class="brand-copy">
+          <span class="brand-name">EL'Vetties</span>
+          <span class="brand-tag">Elspark Range · Family Venue</span>
+        </span>
+      </a>
+      <nav aria-label="Primary">
+        <ul class="nav">
+          <li><a href="#signature">Highlights</a></li>
+          <li><a href="#reel">3D Reel</a></li>
+          <li><a href="#pit">3D Range Game</a></li>
+          <li><a href="#menu">On Site</a></li>
+          <li><a href="#nights">Nights</a></li>
+          <li><a href="#book">Visit Pass</a></li>
+          <li><a href="#visit">Find Us</a></li>
+        </ul>
+      </nav>
+      <div class="top-actions">
+        <button type="button" class="theme-btn" id="themeBtn" aria-pressed="false" aria-label="Switch to night mode">
+          <svg class="sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4.5"/><path d="M12 2v2.5M12 19.5V22M2 12h2.5M19.5 12H22M4.9 4.9l1.8 1.8M17.3 17.3l1.8 1.8M4.9 19.1l1.8-1.8M17.3 6.7l1.8-1.8"/></svg>
+          <svg class="moon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20.5 14.6A8.5 8.5 0 0 1 9.4 3.5a8.5 8.5 0 1 0 11.1 11.1z"/></svg>
+        </button>
+        <button type="button" class="snd" id="sndBtn" aria-pressed="false" aria-label="Toggle Highveld breeze and golf swing sound effects">
+          Sound: Off
+        </button>
+        <a class="btn btn-wa nav-wa" href="https://wa.me/27824486870?text=Hi%20EL'Vetties%2C%20I'd%20like%20to%20book%20a%20table%20or%20driving%20range%20visit!" target="_blank" rel="noopener noreferrer">
+          WhatsApp
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <main id="main">
+    <!-- ── ACT 1: FULL-BLEED CINEMA HERO (165svh Sticky) ──────── -->
+    <section class="hero" id="home" aria-labelledby="hero-h1">
+      <div class="hero-pin">
+        <div class="hero-bg">
+          <img src="img/hero.jpg" alt="Families relaxing under red and green market umbrellas next to EL'Vetties thatched lapa on a sunny Elspark afternoon">
+        </div>
+        <div class="hero-scrim" aria-hidden="true"></div>
+        <div class="hero-copy">
+          <div class="emblem-stamp" aria-hidden="true">
+            <strong>EL'VETTIES</strong>
+            <span>26 SAPELE ST</span>
+          </div>
+          <span class="status-pill" id="livePill" aria-live="polite">
+            <span class="status-dot" aria-hidden="true"></span>
+            <span id="liveText">Checking Elspark hours…</span>
+          </span>
+          <h1 id="hero-h1">Hit the grass. <span>Stay for the lapa.</span></h1>
+          <p class="hero-sub">
+            26 Sapele Street, Elspark, Germiston — where a 4.5★ grass golf driving range meets a sunlit thatched lapa, fenced kids' play area, famous thin-crust pizzas, Sunday carvery, and a proper East Rand pub.
+          </p>
+          <div class="hero-ctas">
+            <a class="btn btn-wa" href="https://wa.me/27824486870?text=Hi%20EL'Vetties%2C%20we'd%20like%20to%20book%20a%20table%20at%2026%20Sapele%20St!" target="_blank" rel="noopener noreferrer">Book on WhatsApp</a>
+            <a class="btn btn-gold" href="#pit">Play the 3D Range</a>
+            <a class="btn btn-ghost" href="#menu">Explore Everything On Site</a>
+          </div>
+          <div class="mouse-cue" aria-hidden="true"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── ACT 2: THREE SIGNATURE PILLARS (Braai Wagon #weekend) ─ -->
+    <section class="sec-cream pad-y" id="signature" aria-labelledby="sig-h2">
+      <div class="wrap">
+        <p class="eyebrow">Three Reasons Germiston Keeps Coming Back</p>
+        <h2 class="sec-h2 split-h2" id="sig-h2">RANGE, PIZZA &amp; THE LAPA</h2>
+        <div class="h2-bar" aria-hidden="true"></div>
+        <p class="sec-lead">
+          Park once off Sapele Street — golfers hit a bucket on open grass, kids own the fenced jungle gym, and everyone meets under the thatch for hot thin-crust pizza and Sunday carvery.
+        </p>
+
+        <div class="tri-grid">
+          <article class="tri-card">
+            <img src="img/range.jpg" alt="Elspark Golf Driving Range wide green grass fairway with distance marker boards and terracotta brick shelter">
+            <div class="tri-body">
+              <span class="tri-kicker">Open 7 Days · 4.5★ Google</span>
+              <h3>Elspark Driving Range</h3>
+              <p>Real grass turf, clear distance marker boards, picnic benches along the line, and reasonably priced buckets of balls — open Mondays too until 19:00.</p>
+              <a class="btn btn-wa" href="https://wa.me/27824486870?text=Hi%20EL'Vetties%2C%20I'd%20like%20to%20enquire%20about%20buckets%20and%20bays%20at%20Elspark%20Driving%20Range!" target="_blank" rel="noopener noreferrer">Ask About Range Bays</a>
+            </div>
+          </article>
+
+          <article class="tri-card">
+            <img src="img/pizza.jpg" alt="Freshly baked EL'Vetties thin-crust ham and pineapple pizza with melted mozzarella and herbs">
+            <div class="tri-body">
+              <span class="tri-kicker">#1 Patron Favourite · 18+ Mentions</span>
+              <h3>Thin-Crust Pizza &amp; Carvery</h3>
+              <p>Crispy thin-crust pizzas praised across 250+ Google reviews, loaded pub dagwoods after the range, and a traditional Sunday family carvery.</p>
+              <a class="btn btn-wa" href="https://wa.me/27824486870?text=Hi%20EL'Vetties%2C%20please%20share%20today's%20pizza%20and%20carvery%20details!" target="_blank" rel="noopener noreferrer">Ask for Today's Menu</a>
+            </div>
+          </article>
+
+          <article class="tri-card">
+            <img src="img/lapa-kids.jpg" alt="Dark timber picnic tables under the shaded thatched lapa overlooking the wooden kids jungle gym">
+            <div class="tri-body">
+              <span class="tri-kicker">Family Favourite · Open Air</span>
+              <h3>Thatched Lapa &amp; Kids' Play</h3>
+              <p>Fenced grass playground with wooden climbing towers, slides, and trampoline — right in direct view of the shaded outdoor lapa benches.</p>
+              <a class="btn btn-wa" href="https://wa.me/27824486870?text=Hi%20EL'Vetties%2C%20we'd%20like%20to%20book%20a%20lapa%20table%20near%20the%20kids%20play%20area!" target="_blank" rel="noopener noreferrer">Book a Lapa Table</a>
+            </div>
+          </article>
+        </div>
+
+        <div class="chip-strip">
+          <span class="info-chip">★ 4.3 Venue &amp; Pub (250 reviews)</span>
+          <span class="info-chip">★ 4.5 Driving Range (80 reviews)</span>
+          <span class="info-chip">Wheelchair-accessible car park, entrance &amp; toilet</span>
+          <span class="info-chip">WhatsApp 082 448 6870</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── ACT 3: 380svh 3D CYLINDRICAL PHOTO REEL (Braai Wagon #lapa) -->
+    <section class="reel-sec" id="reel" aria-labelledby="reel-h2">
+      <div class="reel-sticky">
+        <div class="reel-head">
+          <p class="eyebrow" style="color:var(--gold-lt)">26 Sapele Street · All 7 Real Venue Photos</p>
+          <h2 class="sec-h2 split-h2" id="reel-h2">PULL UP A BENCH</h2>
+          <div class="h2-bar" aria-hidden="true"></div>
+        </div>
+
+        <div class="cyl-stage">
+          <div class="cyl-ring" id="cylRing">
+            <button type="button" class="cyl-card" data-lb-title="The Sunlit Lapa &amp; Lawn" data-lb-desc="Red and green market umbrellas beside the thatched lapa on a bright Elspark afternoon.">
+              <img src="img/hero.jpg" alt="Sunny outdoor lawn and market umbrellas beside EL'Vetties thatched lapa">
+              <span class="cyl-cap"><strong>Sunlit Lapa</strong><span>Outdoor tables &amp; umbrellas</span></span>
+            </button>
+            <button type="button" class="cyl-card" data-lb-title="Elspark Golf Driving Range" data-lb-desc="Wide green grass fairway with distance marker boards, picnic benches, and terracotta brick shelter.">
+              <img src="img/range.jpg" alt="Elspark Golf Driving Range green grass fairway">
+              <span class="cyl-cap"><strong>Open Fairway</strong><span>4.5★ · Open 7 days</span></span>
+            </button>
+            <button type="button" class="cyl-card" data-lb-title="Famous Thin-Crust Pizza" data-lb-desc="EL'Vetties' #1 most-praised menu item across 250+ Google Maps reviews.">
+              <img src="img/pizza.jpg" alt="Freshly baked EL'Vetties thin-crust pizza">
+              <span class="cyl-cap"><strong>Hot Pizza</strong><span>Thin-crust patron favourite</span></span>
+            </button>
+            <button type="button" class="cyl-card" data-lb-title="Lapa Overlooking the Jungle Gym" data-lb-desc="Relax at dark wooden picnic benches with direct sightlines to the fenced kids' playground.">
+              <img src="img/lapa-kids.jpg" alt="Shaded benches under the thatched lapa overlooking the kids wooden jungle gym">
+              <span class="cyl-cap"><strong>Kids In Sight</strong><span>Fenced jungle gym &amp; slides</span></span>
+            </button>
+            <button type="button" class="cyl-card" data-lb-title="Indoor Pub &amp; Pool Room" data-lb-desc="Two red-felt pool tables, big-screen rugby, Springboks &amp; Emirates Lions banners, karaoke &amp; live music.">
+              <img src="img/pub.jpg" alt="EL'Vetties indoor pub with two red-felt pool tables and rugby banners">
+              <span class="cyl-cap"><strong>Pool &amp; Rugby</strong><span>Two red-felt tables</span></span>
+            </button>
+            <button type="button" class="cyl-card" data-lb-title="Aerial View of 26 Sapele Street" data-lb-desc="Fenced grass play area, covered function marquee, thatched lapa, main pub, and on-site parking.">
+              <img src="img/aerial.jpg" alt="Real aerial drone view of 26 Sapele St Elspark showing play area, lapa, and parking">
+              <span class="cyl-cap"><strong>Aerial Grounds</strong><span>26 Sapele St, Elspark</span></span>
+            </button>
+            <button type="button" class="cyl-card" data-lb-title="Elspark Nights Until Midnight" data-lb-desc="Lit thatched roof, palms, and packed East Rand parking — open Tue–Sat until 00:00.">
+              <img src="img/dusk.jpg" alt="EL'Vetties lit thatched lapa and venue exterior at dusk">
+              <span class="cyl-cap"><strong>After Dusk</strong><span>Open Tue–Sat to 00:00</span></span>
+            </button>
+          </div>
+        </div>
+        <div class="reel-controls">
+          <button type="button" class="reel-nav-btn" id="reelPrev" aria-label="Spin 3D reel left">‹ Prev Photo</button>
+          <span class="reel-hint" style="margin:0">Drag or scroll to spin the 3D reel · Tap any photo to enlarge</span>
+          <button type="button" class="reel-nav-btn" id="reelNext" aria-label="Spin 3D reel right">Next Photo ›</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── ACT 4: PLAYABLE THREE.JS WEBGL 3D DRIVING RANGE GAME (#pit) -->
+    <section class="sec-dark pad-y" id="pit" aria-labelledby="pit-h2">
+      <div class="wrap">
+        <p class="eyebrow">Playable Three.js WebGL 3D Micro-Game</p>
+        <h2 class="sec-h2 split-h2" id="pit-h2">WEDGE IT OR SEND IT 200M?</h2>
+        <div class="h2-bar" aria-hidden="true"></div>
+        <p class="sec-lead">
+          Step onto our live 3D Elspark tee mat — pick your club, time the sweet-spot power bar (or swipe up on the grass to swing!), watch the 3D tracer soar toward the distance flags, and book a real bucket &amp; table on WhatsApp.
+        </p>
+
+        <div class="pit-grid">
+          <div class="stage-box">
+            <canvas id="pitCanvas" width="760" height="460" role="img" aria-label="Playable Three.js 3D Elspark Golf Driving Range with tee mat, mowed grass fairway, terracotta brick shelter, trees, and animated golf shots"></canvas>
+            <div class="stage-overlay">
+              <div class="stage-callout" aria-live="polite">
+                <strong id="stageTitle">STEP UP TO THE TEE</strong>
+                <span id="stageSub">Pick your club, time the green sweet spot, and hit Swing (or swipe up on the fairway).</span>
+              </div>
+              <div class="mode-pills">
+                <button type="button" class="mini-pill" id="camBtn" aria-pressed="false">Aerial View</button>
+                <button type="button" class="mini-pill" id="duskBtn" aria-pressed="false">Dusk Lights</button>
+              </div>
+            </div>
+            <div class="power-bar-wrap" aria-hidden="true">
+              <span class="power-label">SWEET SPOT</span>
+              <div class="power-track"><div class="power-needle" id="powerNeedle"></div></div>
+              <span class="power-label" id="powerPct">98%</span>
+            </div>
+          </div>
+
+          <div class="pit-panel">
+            <div class="step-chips" id="stepChips">
+              <span class="step-chip active" data-s="0">1. Club</span>
+              <span class="step-chip" data-s="1">2. Swing</span>
+              <span class="step-chip" data-s="2">3. Flight</span>
+              <span class="step-chip" data-s="3">4. Green</span>
+              <span class="step-chip" data-s="4">5. Lekker!</span>
+            </div>
+
+            <h3 id="panelTitle">CHOOSE YOUR CLUB</h3>
+            <p id="panelDesc">Every shot fires in real 3D over the Elspark fairway — turn on Range Sound to hear the tee-shot thwack.</p>
+
+            <div class="club-row" role="group" aria-label="Select golf club">
+              <button type="button" class="club-opt" data-club="0" aria-pressed="false">Wedge · 50m</button>
+              <button type="button" class="club-opt" data-club="1" aria-pressed="true">8-Iron · 100m</button>
+              <button type="button" class="club-opt" data-club="2" aria-pressed="false">5-Iron · 150m</button>
+              <button type="button" class="club-opt" data-club="3" aria-pressed="false">Driver · 200m</button>
+            </div>
+
+            <div class="aim-row" role="group" aria-label="Aim left or right against Highveld wind">
+              <button type="button" class="club-opt" id="aimLeftBtn" aria-label="Aim left">‹ Aim Left</button>
+              <span class="aim-readout" id="aimReadout">AIM 0° · WIND →</span>
+              <button type="button" class="club-opt" id="aimRightBtn" aria-label="Aim right">Aim Right ›</button>
+            </div>
+
+            <div class="tel-grid" aria-live="polite">
+              <div><span>Carry</span><strong id="telCarry">100 m</strong></div>
+              <div><span>Apex</span><strong id="telApex">32 m</strong></div>
+              <div><span>Score</span><strong id="telScore">0 pts</strong></div>
+              <div><span>Bucket</span><strong id="telBucket">12 left</strong></div>
+            </div>
+
+            <div class="pit-prog"><div class="pit-prog-fill" id="pitProgFill"></div></div>
+
+            <button type="button" class="btn btn-gold" id="swingBtn" style="width:100%">Swing Now (Lock Sweet Spot)</button>
+            <a class="btn btn-wa" id="pitWaCta" href="https://wa.me/27824486870?text=Hi%20EL'Vetties%2C%20I%20just%20played%20the%203D%20range%20and%20want%20to%20book%20a%20real%20bucket%20and%20pizza%20table!" target="_blank" rel="noopener noreferrer" style="width:100%">Book a Real Bucket &amp; Table</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── ACT 5: SEARCHABLE VENUE & KITCHEN BOARD (Braai Wagon #menu) -->
+    <section class="sec-paper pad-y" id="menu" aria-labelledby="menu-h2">
+      <div class="wrap">
+        <p class="eyebrow">Verified Details · Zero Invented Prices</p>
+        <h2 class="sec-h2 split-h2" id="menu-h2">PIZZA TO RANGE TO PUB</h2>
+        <div class="h2-bar" aria-hidden="true"></div>
+        <p class="sec-lead">
+          Browse one section at a time, tap the arrows, or search everything available at 26 Sapele Street.
+        </p>
+
+        <div class="menu-shell">
+          <div class="cat-rail" role="tablist" aria-label="On-site categories" id="catRail"></div>
+          <div class="menu-panel featured" id="menuPanel" role="tabpanel" aria-live="polite">
+            <div class="mp-head">
+              <h3 id="mpTitle">KITCHEN &amp; PIZZA</h3>
+              <div class="mp-arrows">
+                <button type="button" class="arrow-btn" id="prevCat" aria-label="Previous category">‹</button>
+                <button type="button" class="arrow-btn" id="nextCat" aria-label="Next category">›</button>
+              </div>
+            </div>
+            <p class="mp-sub" id="mpSub">Freshly prepared at 26 Sapele St — message EL'Vetties on WhatsApp for today's specials and current pricing.</p>
+            <ul class="mp-items" id="mpItems"></ul>
+            <div class="mp-foot">
+              <button type="button" class="search-trigger" id="openSearch">Search everything on site (19 items)</button>
+              <a class="btn btn-wa" href="https://wa.me/27824486870?text=Hi%20EL'Vetties%2C%20please%20could%20you%20send%20me%20today's%20menu%20and%20bucket%20prices?" target="_blank" rel="noopener noreferrer">Ask on WhatsApp</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── ACT 6: 24-BULB SCROLL-IGNITED LAPA NIGHTS (Braai Wagon #nights) -->
+    <section class="nights-sec" id="nights" aria-labelledby="nights-h2">
+      <svg class="festoon-svg" viewBox="0 0 1200 92" preserveAspectRatio="none" aria-hidden="true">
+        <path d="M0,18 Q300,76 600,26 T1200,22" fill="none" stroke="rgba(255,224,153,0.35)" stroke-width="2"/>
+        <g id="festoonBulbs"></g>
+      </svg>
+      <div class="wrap">
+        <p class="eyebrow" style="color:var(--gold-lt)">The Weekly Rhythm at 26 Sapele St</p>
+        <h2 class="sec-h2 split-h2" id="nights-h2">WEEKDAY BUCKETS TO SUNDAY CARVERY</h2>
+        <div class="h2-bar" aria-hidden="true"></div>
+        <p class="sec-lead">
+          Scroll down and watch the lapa festoon lights warm up — every day of the week brings its own crowd to Elspark.
+        </p>
+
+        <div class="nights-grid">
+          <article class="night-card lit">
+            <span class="night-kicker">Mondays · 09:00–19:00</span>
+            <h3>Range Stays Open</h3>
+            <p>While the pub and kitchen take a breather on Mondays, the Elspark Golf Driving Range stays open for after-work practice.</p>
+          </article>
+          <article class="night-card lit">
+            <span class="night-kicker">Tue – Sat · Until 22:00</span>
+            <h3>Evening Range Sessions</h3>
+            <p>Hit reasonably priced buckets on the open grass fairway right through the evening, then grab a hot pizza or dagwood.</p>
+          </article>
+          <article class="night-card lit">
+            <span class="night-kicker">Fri &amp; Sat · Until 00:00</span>
+            <h3>Pool, Karaoke &amp; Cold Drinks</h3>
+            <p>Two red-felt pool tables, karaoke nights, and a friendly East Rand neighbourhood crowd inside and under the lapa.</p>
+          </article>
+          <article class="night-card">
+            <span class="night-kicker">Match Days</span>
+            <h3>Big-Screen Live Rugby</h3>
+            <p>Watch the Springboks and Emirates Lions on screen with fellow locals, cold draughts, and hot pizzas from the kitchen.</p>
+          </article>
+          <article class="night-card">
+            <span class="night-kicker">Sundays · 09:00–18:00</span>
+            <h3>Sunday Carvery &amp; Live Music</h3>
+            <p>Traditional Sunday family carvery praised for great value, paired with live afternoon entertainment and kids on the jungle gym.</p>
+          </article>
+          <article class="night-card">
+            <span class="night-kicker">Birthdays &amp; Groups</span>
+            <h3>Covered Function Marquee</h3>
+            <p>Spacious tented patio area right alongside the fenced lawn playground — message us on WhatsApp with your date and guest count.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── ACT 7: VISIT PASS + ZERO-BACKEND HOST DESK DEMO (YODA Pattern) -->
+    <section class="sec-cream pad-y" id="book" aria-labelledby="book-h2">
+      <div class="wrap">
+        <p class="eyebrow">Plan Your Visit · Live Interactive Host Desk Preview</p>
+        <h2 class="sec-h2 split-h2" id="book-h2">BUILD YOUR PASS &amp; PREVIEW HOST DESK</h2>
+        <div class="h2-bar" aria-hidden="true"></div>
+        <p class="sec-lead">
+          Guests customize their group and send straight to WhatsApp or download a PNG pass — and on the right, preview how incoming requests land cleanly on the owner's phone (100% local in-browser demo; nothing leaves your device).
+        </p>
+
+        <div class="book-grid">
+          <div class="book-card">
+            <h3>Your EL'Vetties Visit Pass</h3>
+            <div class="cnt-grid">
+              <div class="cnt-box">
+                <strong>Adults</strong>
+                <div style="display:flex;align-items:center;gap:8px">
+                  <button type="button" class="cnt-btn" data-cnt="adults" data-d="-1" aria-label="Decrease adults">−</button>
+                  <strong id="vAdults" style="min-width:20px;text-align:center">2</strong>
+                  <button type="button" class="cnt-btn" data-cnt="adults" data-d="1" aria-label="Increase adults">+</button>
+                </div>
+              </div>
+              <div class="cnt-box">
+                <strong>Kids</strong>
+                <div style="display:flex;align-items:center;gap:8px">
+                  <button type="button" class="cnt-btn" data-cnt="kids" data-d="-1" aria-label="Decrease kids">−</button>
+                  <strong id="vKids" style="min-width:20px;text-align:center">2</strong>
+                  <button type="button" class="cnt-btn" data-cnt="kids" data-d="1" aria-label="Increase kids">+</button>
+                </div>
+              </div>
+            </div>
+
+            <div>
+              <span class="f-lbl">What are you coming for?</span>
+              <div class="pill-row" id="actRow">
+                <button type="button" class="p-opt" data-act="Driving Range" aria-pressed="true">Driving Range</button>
+                <button type="button" class="p-opt" data-act="Thin-Crust Pizza" aria-pressed="true">Thin-Crust Pizza</button>
+                <button type="button" class="p-opt" data-act="Kids' Play Area" aria-pressed="true">Kids' Play Area</button>
+                <button type="button" class="p-opt" data-act="Sunday Carvery" aria-pressed="false">Sunday Carvery</button>
+                <button type="button" class="p-opt" data-act="Pub & Pool" aria-pressed="false">Pub &amp; Pool</button>
+                <button type="button" class="p-opt" data-act="Birthday / Marquee" aria-pressed="false">Function</button>
+              </div>
+            </div>
+
+            <div>
+              <span class="f-lbl">Seating &amp; Day</span>
+              <div class="pill-row" id="seatRow">
+                <button type="button" class="p-opt" data-seat="Thatched Lapa" aria-pressed="true">Thatched Lapa</button>
+                <button type="button" class="p-opt" data-seat="Lawn Umbrellas" aria-pressed="false">Lawn Umbrellas</button>
+                <button type="button" class="p-opt" data-seat="Indoor Pub" aria-pressed="false">Indoor Pub</button>
+                <button type="button" class="p-opt" data-when="Saturday Day Out" aria-pressed="true">Saturday</button>
+                <button type="button" class="p-opt" data-when="Sunday Carvery" aria-pressed="false">Sunday Carvery</button>
+              </div>
+            </div>
+
+            <div class="pass-box" id="passSummary" aria-live="polite"></div>
+
+            <div style="display:flex;flex-wrap:wrap;gap:10px;margin-top:auto">
+              <a class="btn btn-wa" id="waPassLink" href="https://wa.me/27824486870" target="_blank" rel="noopener noreferrer" style="flex:1 1 180px">Send via WhatsApp</a>
+              <button type="button" class="btn btn-ember" id="addToDeskBtn" style="flex:1 1 160px">Log to Demo Desk</button>
+              <button type="button" class="btn btn-ghost-dark" id="pngBtn">PNG Pass</button>
+            </div>
+          </div>
+
+          <div class="desk-card">
+            <div class="desk-head">
+              <h3>Owner Host Desk (Local Demo)</h3>
+              <span class="desk-badge">Runs locally · Zero backend</span>
+            </div>
+            <p style="margin:0;font-size:0.88rem;color:var(--light-soft)">
+              Sample preview showing how table, carvery, and driving range enquiries queue on the venue's phone. Tap <strong>Confirm</strong> or <strong>Log to Demo Desk</strong> on the left to test it live.
+            </p>
+            <ul class="desk-list" id="deskList" aria-live="polite"></ul>
+            <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;margin-top:auto;padding-top:10px;border-top:1px solid rgba(255,255,255,0.14)">
+              <span style="font-size:0.8rem;color:var(--light-soft)">Saved in browser localStorage only</span>
+              <button type="button" class="mini-pill" id="resetDeskBtn">Reset Demo</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── ACT 8: COUNT-UP VERIFIED RATINGS + HOURS & DIRECTIONS ─ -->
+    <section class="sec-paper pad-y" id="reviews" aria-labelledby="rev-h2">
+      <div class="wrap">
+        <p class="eyebrow">330+ Combined Verified Google Reviews</p>
+        <h2 class="sec-h2 split-h2" id="rev-h2">STRAIGHT FROM ELSPARK REGULARS</h2>
+        <div class="h2-bar" aria-hidden="true"></div>
+
+        <div class="rv-grid">
+          <div class="score-card">
+            <div>
+              <span style="font-size:0.82rem;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;opacity:0.9">Google Maps Ratings</span>
+              <div class="score-big"><span data-countup="4.5" data-decimals="1" data-suffix="★">4.5★</span></div>
+              <p style="margin:6px 0 0;font-size:0.92rem">Elspark Golf Driving Range (80 reviews) · <strong>4.3★</strong> EL'Vetties Family Venue &amp; Pub (250 reviews).</p>
+            </div>
+            <span style="font-size:0.84rem;opacity:0.9">Verified Nov 2026 · 26 Sapele St</span>
+          </div>
+
+          <article class="rv-card">
+            <h3>Thin-Crust Pizza &amp; Carvery</h3>
+            <p>18+ review mentions call out EL'Vetties' freshly baked thin-crust pizzas, hearty dagwoods after the range, and traditional Sunday carvery at great value.</p>
+          </article>
+
+          <article class="rv-card">
+            <h3>Elco, Team &amp; Family Vibe</h3>
+            <p>15+ mentions praise friendly, respectful staff, clean bathrooms, fenced kids' play towers, and welcoming East Rand hospitality.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="sec-cream pad-y" id="visit" aria-labelledby="visit-h2">
+      <div class="wrap">
+        <p class="eyebrow">Find 26 Sapele Street</p>
+        <h2 class="sec-h2 split-h2" id="visit-h2">HOURS &amp; DIRECTIONS</h2>
+        <div class="h2-bar" aria-hidden="true"></div>
+
+        <div class="visit-grid">
+          <div class="info-card">
+            <h3 style="margin:0 0 10px;font-family:var(--head);font-size:1.35rem;text-transform:uppercase">EL'Vetties Venue, Kitchen &amp; Pub</h3>
+            <table class="h-table" id="venueHoursTbl">
+              <tbody>
+                <tr data-days="1"><th scope="row">Monday</th><td>Closed</td></tr>
+                <tr data-days="2,3,4,5,6"><th scope="row">Tuesday – Saturday</th><td>09:00 – 00:00</td></tr>
+                <tr data-days="0"><th scope="row">Sunday</th><td>09:00 – 18:00</td></tr>
+              </tbody>
+            </table>
+
+            <h3 style="margin:18px 0 10px;font-family:var(--head);font-size:1.35rem;text-transform:uppercase">Elspark Golf Driving Range</h3>
+            <table class="h-table" id="rangeHoursTbl">
+              <tbody>
+                <tr data-days="1"><th scope="row">Monday</th><td>09:00 – 19:00</td></tr>
+                <tr data-days="2,3,4,5,6"><th scope="row">Tuesday – Saturday</th><td>09:00 – 22:00</td></tr>
+                <tr data-days="0"><th scope="row">Sunday</th><td>09:00 – 17:00</td></tr>
+              </tbody>
+            </table>
+
+            <div style="display:flex;flex-wrap:wrap;gap:10px;margin-top:16px">
+              <a class="btn btn-wa" href="https://wa.me/27824486870?text=Hi%20EL'Vetties%2C%20I'd%20like%20to%20enquire%20about%20visiting%20today!" target="_blank" rel="noopener noreferrer">WhatsApp 082 448 6870</a>
+              <a class="btn btn-ghost-dark" href="tel:+27824486870">Call Venue</a>
+            </div>
+          </div>
+
+          <div class="map-card">
+            <img src="img/aerial.jpg" alt="Real aerial photo of EL'Vetties Family Venue and Elspark Golf Driving Range at 26 Sapele St">
+            <div class="map-scrim" aria-hidden="true"></div>
+            <div class="map-pin-drop" aria-hidden="true"></div>
+            <div class="map-content">
+              <h3>26 Sapele Street, Elspark, Germiston, 1418</h3>
+              <p>On-site parking · Wheelchair-accessible car park, entrance &amp; toilet · Plus Code P6HJ+5H Germiston.</p>
+              <div style="display:flex;flex-wrap:wrap;gap:10px">
+                <a class="btn btn-gold" href="https://maps.google.com/?q=26+Sapele+St,+Elspark,+Germiston,+1418" target="_blank" rel="noopener noreferrer">Get Directions</a>
+                <a class="btn btn-ghost" href="https://www.facebook.com/therangeelspark" target="_blank" rel="noopener noreferrer">Facebook @therangeelspark</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="foot">
+    <div class="wrap">
+      <div class="foot-grid">
+        <div>
+          <h3>EL'Vetties Family Venue</h3>
+          <p style="margin:0">Elspark Golf Driving Range t/a El'Vetties Family Venue · 26 Sapele St, Elspark, Germiston, 1418.</p>
+        </div>
+        <div>
+          <h3>Follow Along</h3>
+          <p style="margin:0"><a href="https://www.facebook.com/therangeelspark" target="_blank" rel="noopener noreferrer">Facebook (@therangeelspark)</a> · <a href="https://maps.google.com/?q=26+Sapele+St,+Elspark,+Germiston,+1418" target="_blank" rel="noopener noreferrer">Google Maps</a></p>
+        </div>
+        <div>
+          <h3>Contact</h3>
+          <p style="margin:0"><a href="tel:+27824486870">082 448 6870</a> · <a href="https://wa.me/27824486870" target="_blank" rel="noopener noreferrer">WhatsApp Us</a></p>
+        </div>
+      </div>
+
+      <details class="popia">
+        <summary>Privacy (POPIA) &amp; Concept Preview Notice</summary>
+        <p style="margin:10px 0 0;max-width:74ch">
+          Private concept preview crafted by NFC Software Solutions using verified public details from EL'Vetties' Google Maps listings. The Host Desk Demo runs 100% locally in your browser (localStorage) — no personal data is transmitted anywhere. All 7 venue, lapa, pizza, pub, and driving-range photographs are sourced from EL'Vetties' public Google Maps pins for private preview only (while the full-page grass fairway backdrop is stylized Highveld atmosphere) and will be confirmed or replaced with owner-supplied imagery before live launch.
+        </p>
+      </details>
+      <p class="nfc-credit">Website by NFC Software Solutions</p>
+    </div>
+  </footer>
+
+  <!-- Lightbox Modal for 3D Reel Photos -->
+  <dialog class="modal" id="lightboxModal" aria-labelledby="lbTitle">
+    <div class="modal-head">
+      <h3 id="lbTitle">Venue Photo</h3>
+      <button type="button" class="close-btn" id="closeLb" aria-label="Close photo">×</button>
+    </div>
+    <div class="modal-body">
+      <img id="lbImg" src="img/hero.jpg" alt="" style="width:100%;border-radius:14px;margin-bottom:12px">
+      <p id="lbDesc" style="margin:0;color:var(--muted)"></p>
+    </div>
+  </dialog>
+
+  <!-- Live Search Modal for On-Site Board -->
+  <dialog class="modal" id="searchModal" aria-labelledby="searchTitle">
+    <div class="modal-head">
+      <h3 id="searchTitle">Search Everything at EL'Vetties</h3>
+      <button type="button" class="close-btn" id="closeSearch" aria-label="Close search">×</button>
+    </div>
+    <div class="modal-body">
+      <label for="searchBox" class="skip-link">Search offerings</label>
+      <input id="searchBox" class="search-input" type="search" placeholder="Try: pizza, carvery, Monday, pool, kids, wheelchair…">
+      <ul class="mp-items" id="searchResults" style="grid-template-columns:1fr"></ul>
+    </div>
+  </dialog>
+
+  <!-- Sticky Mobile Conversion Bar (strictly after hero) -->
+  <div class="mbar" id="mbar" aria-label="Mobile quick contact">
+    <a class="btn btn-wa" href="https://wa.me/27824486870?text=Hi%20EL'Vetties%2C%20we'd%20like%20to%20book%20a%20visit%20at%2026%20Sapele%20St!" target="_blank" rel="noopener noreferrer">Book on WhatsApp</a>
+    <a class="call-sq" href="tel:+27824486870" aria-label="Call EL'Vetties 082 448 6870">Call</a>
+  </div>
+
+  <script src="js/site.js" defer></script>
+  <script src="js/house.js" defer></script>
+</body>
+</html>

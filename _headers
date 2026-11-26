@@ -1,0 +1,10 @@
+/*
+  Content-Security-Policy: default-src 'none'; script-src 'self' 'sha256-vyD0tDLKSgU2naTnaXTz2+x9ZDwIx28ZDvB62usV+EQ='; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob:; font-src 'self'; connect-src 'self'; form-action 'self'; base-uri 'none'; frame-ancestors 'none'
+  Strict-Transport-Security: max-age=31536000; includeSubDomains
+  X-Content-Type-Options: nosniff
+  Referrer-Policy: strict-origin-when-cross-origin
+  Permissions-Policy: camera=(), microphone=(), geolocation=(), payment=(), usb=()
+  Cross-Origin-Opener-Policy: same-origin
+  X-Robots-Tag: noindex, nofollow
+/fonts/*
+  Cache-Control: public, max-age=31536000, immutable
