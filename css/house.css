@@ -300,3 +300,9 @@ html { -webkit-tap-highlight-color: transparent; }
 /* game buttons: no phone double-tap delay, no sticky hover tint on touch */
 #pit .btn, #pit .club-opt, #pit .mini-pill, .tee-pad { touch-action: manipulation; -webkit-user-select: none; user-select: none; }
 @media (hover: none) { #pit .btn-gold:hover { background: var(--gold); } #pit .club-opt:hover:not([aria-pressed="true"]) { background: rgba(255, 255, 255, .07); color: var(--light); border-color: rgba(255, 255, 255, .18); } }
+/* game message box: compact so it stays out of the ball's flight (user 27 Nov) */
+.stage-callout { padding: 7px 12px; border-radius: 10px; max-width: 300px; }
+.stage-callout strong { font-size: .98rem; line-height: 1.2; }
+.stage-callout span { display: block; font-size: .74rem; line-height: 1.3; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; opacity: .9; }
+.mode-pills .mini-pill { min-height: 38px; padding: 0 12px; font-size: .76rem; }
+@media (max-width: 640px) { .stage-callout { max-width: none; } .mode-pills .mini-pill { min-height: 44px; } }

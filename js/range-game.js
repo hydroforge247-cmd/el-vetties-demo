@@ -80,9 +80,10 @@
     g.save();
     g.globalCompositeOperation = 'multiply'; g.fillStyle = 'rgb(70, 84, 128)'; g.fillRect(0, 0, W, H);
     g.globalCompositeOperation = 'source-over';
-    var sky = g.createLinearGradient(0, 0, 0, oy + VPY * s);
-    sky.addColorStop(0, 'rgba(8, 16, 40, .55)'); sky.addColorStop(1, 'rgba(230, 120, 60, .22)');
-    g.fillStyle = sky; g.fillRect(0, 0, W, oy + VPY * s);
+    // dusk sky fades out smoothly past the horizon (user 27 Nov: a hard line ran across the middle)
+    var hz = oy + VPY * s, sky = g.createLinearGradient(0, 0, 0, hz * 1.5);
+    sky.addColorStop(0, 'rgba(10, 18, 44, .5)'); sky.addColorStop(0.55, 'rgba(70, 60, 90, .18)'); sky.addColorStop(0.75, 'rgba(200, 120, 80, .08)'); sky.addColorStop(1, 'rgba(0, 0, 0, 0)');
+    g.fillStyle = sky; g.fillRect(0, 0, W, hz * 1.5);
     g.globalCompositeOperation = 'lighter';
     [[1210, 590, 150, 'rgba(255, 190, 90, .55)'], [760, 980, 520, 'rgba(255, 236, 190, .22)']].forEach(function (L) {
       var x = ox + L[0] * s, y = oy + L[1] * s, r = L[2] * s;
