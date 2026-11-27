@@ -9,7 +9,7 @@
   if (!ld) { d.classList.remove('ld-on'); }
   else {
     var pct = ld.querySelector('.ld-pct'), cv = ld.querySelector('.ld-range'), g = cv && cv.getContext('2d');
-    var reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+    var reduce = false; // owner's call 27 Nov: this site's motion is small and visitor-started, so it plays for everyone (phones on battery saver report reduced motion)
     var urls = [];
     document.querySelectorAll('img').forEach(function (im) {
       var u = im.currentSrc || im.src || im.getAttribute('data-src');
@@ -110,7 +110,7 @@
   btn.addEventListener('click', function () {
     var next = d.dataset.theme === 'night' ? 'day' : 'night';
     function apply() { d.dataset.theme = next; label(); try { localStorage.setItem('ev-theme', next); } catch (e) {} }
-    if (!document.startViewTransition || matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    if (!document.startViewTransition) {
       d.classList.add('theme-fade'); apply();
       setTimeout(function () { d.classList.remove('theme-fade'); }, 450);
       return;

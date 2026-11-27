@@ -9,7 +9,7 @@
   const reducedMotion = () =>
     typeof window !== 'undefined' &&
     window.matchMedia &&
-    window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    false; // owner's call 27 Nov (see house.js)
 
   /* ── 1. Procedural Web Audio Ambient & Gesture Sound Engine ───── */
   function createAmbientSound(mode = 'sizzle') {
@@ -222,7 +222,7 @@
 (() => {
   'use strict';
 
-  const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const reducedMotion = false; // owner's call 27 Nov (see house.js)
   const V5 = window.CraftV5 || {};
 
   /* ── 1. Procedural Web Audio ("Range sound: On/Off") ──────────── */

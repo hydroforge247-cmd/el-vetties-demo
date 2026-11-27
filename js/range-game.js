@@ -13,7 +13,7 @@
   var powerNeedle = $('powerNeedle'), powerPct = $('powerPct'), swingBtn = $('swingBtn');
   var camBtn = $('camBtn'), duskBtn = $('duskBtn'), teePad = $('teePad');
   var stepChips = document.querySelectorAll('#stepChips .step-chip');
-  var reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var reduce = false; // owner's call 27 Nov: this site's motion is small and visitor-started, so it plays for everyone (phones on battery saver report reduced motion)
 
   var CLUBS = [
     { name: 'Wedge · 50m', dist: 50, lat: -6, peak: 18, hex: '#FFE099' },

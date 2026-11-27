@@ -137,7 +137,6 @@ body { background: var(--cream); }
 [data-theme="night"] .theme-btn .gball-shade { transform: translateX(-12px); }
 ::view-transition-old(root), ::view-transition-new(root) { animation: none; mix-blend-mode: normal; }
 .theme-fade body { transition: background-color .4s ease, color .4s ease; }
-@media (prefers-reduced-motion: reduce) { .theme-btn .gball, .theme-btn .gball-shade { transition: none; } }
 
 /* ---------- Night palette: flat deep greens, same layout ---------- */
 [data-theme="night"] { --ink: #FCF9F2; --muted: #C9D6CD; --ember: #F4A261; color-scheme: dark; }
@@ -186,7 +185,6 @@ body { background: var(--cream); }
 .pd.on .pd-glow { opacity: 1; animation: pd-ignite 1.1s ease-out; }
 @keyframes pd-ignite { 0% { opacity: 0; } 18% { opacity: .7; } 26% { opacity: .2; } 40% { opacity: .85; } 100% { opacity: 1; } }
 @media (max-width: 640px) { .lapa-lights { height: 170px; } .pd-glow { width: 110px; height: 110px; margin: -55px 0 0 -55px; } }
-@media (prefers-reduced-motion: reduce) { .pd.on .pd-glow { animation: none; } }
 
 /* ---------- Polish ---------- */
 .hero-sub { /* frosted "ice" box for text over the photo */
@@ -284,3 +282,18 @@ html { -webkit-tap-highlight-color: transparent; }
   .power-bar-wrap { order: 3; }
   #pitCanvas { order: 1; aspect-ratio: 4 / 3.2; }
 }
+
+/* ---------- Phones: weekly cards as the stacking deck too (user 27 Nov) ---------- */
+@media (max-width: 760px) {
+  .nights-grid { display: block; }
+  .night-card { position: sticky; top: calc(72px + var(--i, 0) * 10px); min-height: 190px; margin-bottom: 14px;
+    background-color: #102a1b; box-shadow: 0 -12px 28px rgba(0, 0, 0, .35); justify-content: center; }
+  .night-card.lit { background-color: #1c3622; }
+  .night-card:nth-child(2) { --i: 1; } .night-card:nth-child(3) { --i: 2; } .night-card:nth-child(4) { --i: 3; }
+  .night-card:nth-child(5) { --i: 4; } .night-card:nth-child(6) { --i: 5; }
+}
+
+/* ---------- Touch feedback: phones never see hover, so presses answer instead ---------- */
+.btn, .bt, .gal-tile, .club-opt, .mini-pill, .p-opt, .cat-btn { transition: transform .15s ease, background-color .2s ease, color .2s ease; }
+.btn:active, .club-opt:active, .mini-pill:active, .p-opt:active, .cat-btn:active { transform: scale(.96); }
+.bt:active, .gal-tile:active { transform: scale(.985); }
