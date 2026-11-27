@@ -106,13 +106,19 @@
       g.fillStyle = c.hex; g.beginPath(); g.moveTo(top.x, top.y);
       g.quadraticCurveTo(top.x + fw * 0.5, top.y + fw * 0.12 + wave, top.x + fw, top.y + fw * 0.18);
       g.lineTo(top.x, top.y + fw * 0.42); g.closePath(); g.fill();
-      if (on || !aerial) { // distance chip
-        var label = c.dist + ' m', fs = Math.round(Math.max(10, 12 * unit));
-        g.font = '600 ' + fs + 'px Outfit, system-ui, sans-serif';
-        var tw = g.measureText(label).width + fs, lx = top.x - tw - 6 * unit, ly = top.y - 2;
-        g.fillStyle = 'rgba(7, 25, 16, .78)'; roundRect(lx, ly, tw, fs * 1.6, fs * 0.8); g.fill();
-        g.fillStyle = on ? '#FFE099' : '#FCF9F2'; g.fillText(label, lx + fs * 0.5, ly + fs * 1.15);
-      }
+      // our own yardage board left of each flag (user 27 Nov: the photo's boards were edited out): two posts, a white board, the number
+      g.globalAlpha = 1;
+      var L = c.lat - 11.5, R = c.lat - 4, tl = proj(c.dist, L, 6), br = proj(c.dist, R, 2.4);
+      var bw = br.x - tl.x, bh = br.y - tl.y, minH = 17 * unit;
+      if (bh < minH) { var k = minH / bh, cx = (tl.x + br.x) / 2, cy = (tl.y + br.y) / 2; bw *= k; bh = minH; tl = { x: cx - bw / 2, y: cy - bh / 2 }; br = { x: cx + bw / 2, y: cy + bh / 2 }; }
+      var pl = proj(c.dist, L + 0.6, 0), pr = proj(c.dist, R - 0.6, 0);
+      g.strokeStyle = '#e9ece8'; g.lineWidth = Math.max(1, bw * 0.05);
+      g.beginPath(); g.moveTo(tl.x + bw * 0.12, br.y); g.lineTo(tl.x + bw * 0.12, Math.max(pl.y, br.y)); g.moveTo(br.x - bw * 0.12, br.y); g.lineTo(br.x - bw * 0.12, Math.max(pr.y, br.y)); g.stroke();
+      g.fillStyle = 'rgba(0,0,0,.25)'; g.fillRect(tl.x + 1.5 * unit, tl.y + 1.5 * unit, bw, bh);
+      g.fillStyle = '#fbfaf5'; g.fillRect(tl.x, tl.y, bw, bh);
+      g.strokeStyle = on ? c.hex : '#26302a'; g.lineWidth = Math.max(1.2, bh * (on ? 0.12 : 0.07)); g.strokeRect(tl.x, tl.y, bw, bh);
+      g.fillStyle = '#0C2618'; g.font = '700 ' + Math.round(bh * 0.66) + 'px Oswald, Impact, sans-serif'; g.textAlign = 'center'; g.textBaseline = 'middle';
+      g.fillText(String(c.dist), tl.x + bw / 2, tl.y + bh * 0.54); g.textAlign = 'left'; g.textBaseline = 'alphabetic';
       g.restore();
     });
   }
@@ -290,8 +296,24 @@
   }
 
   // ---- game flow ----
-  function launch() {
+  // the needle is worked out from the clock, so the tap locks exactly where the needle was at that instant
+  var needleT0 = performance.now();
+  function needleAt(t) {
+    var pos = 50 + Math.sin((t - needleT0) / 1000 * 3.1) * 44;
+    needleSigned = (pos - 50) / 44; needleVal = Math.max(0.55, 1 - Math.abs(needleSigned) * 0.45);
+    if (powerNeedle) powerNeedle.style.left = pos.toFixed(2) + '%';
+    if (powerPct) { var pw = Math.round(Math.abs(needleSigned) * 30); powerPct.textContent = pw > 1 ? pw + '% short' : 'pure'; }
+  }
+  var resetTimer = null;
+  function swingLabel() { if (swingBtn) swingBtn.textContent = shot ? 'Start Again' : 'Swing Now (Lock Sweet Spot)'; }
+  function resetShot() { // user 27 Nov: start again at any moment, even mid-flight
+    clearTimeout(resetTimer); resetTimer = null; shot = null; setStep(1); swingLabel();
+    say('STEP UP TO THE TEE', 'Pick your club and swing when the needle is on the green.', 'CHOOSE YOUR CLUB', 'Pick a club, then swing when the needle is on the green.');
+    draw(); kick();
+  }
+  function launch(e) {
     if (shot) return;
+    needleAt(e && e.timeStamp ? e.timeStamp : performance.now());
     // user 27 Nov: a range never gives you extra; the sweet spot is the club's full distance, a miss either side falls short
     var c = CLUBS[activeClub], power = 1 - Math.abs(needleSigned) * 0.3, dist = Math.round(c.dist * power);
     var aim = aimLat(dist), drift = windMps * 0.85 + needleSigned * 4;
@@ -320,20 +342,14 @@
     if (pitWaCta) pitWaCta.href = 'https://wa.me/27824486870?text=' + encodeURIComponent("Hi EL'Vetties! I just scored " + totalScore +
       ' pts on your range game (' + sh.dist + 'm with the ' + c.name + ") and want to book a real bucket and a table at Sapele St!");
     windMps = Math.round((Math.random() * 14 - 7) * 10) / 10; aimLabel();
-    setTimeout(function () { shot = null; setStep(1); kick(); }, reduce ? 1800 : 2200);
+    resetTimer = setTimeout(function () { resetTimer = null; shot = null; setStep(1); swingLabel(); kick(); }, 2600);
   }
 
   // ---- loop: runs only while the stage is on screen ----
   var running = false, visible = false, last = 0;
   function frame(now) {
     var dt = Math.min(0.05, (now - (last || now)) / 1000); last = now; perfT += dt;
-    if (!reduce && !shot) {
-      needlePhase += dt * 3.1;
-      var pos = 50 + Math.sin(needlePhase) * 44;
-      needleSigned = (pos - 50) / 44; needleVal = Math.max(0.55, 1 - Math.abs(needleSigned) * 0.45);
-      if (powerNeedle) powerNeedle.style.left = pos.toFixed(1) + '%';
-      if (powerPct) { var pw = Math.round(Math.abs(needleSigned) * 30); powerPct.textContent = pw > 1 ? pw + '% short' : 'pure'; }
-    }
+    if (!shot) needleAt(now);
     if (shot) {
       shot.t += dt;
       if (shot.phase === 'swing' && shot.t >= 0.7) { shot.phase = 'flight'; if (window.EVSound) window.EVSound.playImpact('golf'); setStep(3); }
@@ -357,7 +373,7 @@
   });
   if ($('aimLeftBtn')) $('aimLeftBtn').addEventListener('click', function () { aimDeg = Math.max(-16, aimDeg - 4); aimLabel(); draw(); });
   if ($('aimRightBtn')) $('aimRightBtn').addEventListener('click', function () { aimDeg = Math.min(16, aimDeg + 4); aimLabel(); draw(); });
-  if (swingBtn) swingBtn.addEventListener('click', launch);
+  if (swingBtn) swingBtn.addEventListener('click', function (e) { if (shot) resetShot(); else { launch(e); swingLabel(); } });
   if (camBtn) camBtn.addEventListener('click', function () {
     aerial = !aerial; camBtn.setAttribute('aria-pressed', String(aerial)); camBtn.textContent = aerial ? 'Tee View' : 'Aerial View'; draw();
   });
@@ -368,7 +384,7 @@
   if (teePad) { // swipe up from the ball; only this small pad takes the finger, the rest of the stage scrolls the page
     var sy = null;
     teePad.addEventListener('pointerdown', function (e) { sy = e.clientY; teePad.setPointerCapture(e.pointerId); });
-    teePad.addEventListener('pointerup', function (e) { if (sy !== null && sy - e.clientY > 24) launch(); sy = null; });
+    teePad.addEventListener('pointerup', function (e) { if (sy !== null && sy - e.clientY > 24) { launch(e); swingLabel(); } sy = null; });
     teePad.addEventListener('keydown', function (e) { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); launch(); } });
   }
 
