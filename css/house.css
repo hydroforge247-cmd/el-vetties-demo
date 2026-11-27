@@ -249,16 +249,38 @@ html { -webkit-tap-highlight-color: transparent; }
   text-shadow: 0 2px 0 rgba(0, 0, 0, .35), 0 10px 40px rgba(0, 0, 0, .65);
 }
 .hero-copy h1 span { color: var(--gold); display: inline-block; position: relative; }
-.hero-copy h1 span::after { /* a gold stroke under the lapa line */
-  content: ''; position: absolute; left: 4%; right: 4%; bottom: -.08em; height: .09em; border-radius: 99px;
-  background: linear-gradient(90deg, var(--ember-bright), var(--gold)); transform-origin: left; animation: h1-stroke .9s .5s cubic-bezier(.22, 1, .36, 1) both;
-}
-@keyframes h1-stroke { from { transform: scaleX(0); } }
 .hero-scrim { background:
   radial-gradient(55% 42% at 50% 52%, rgba(7, 25, 16, .55), rgba(7, 25, 16, 0) 100%),
   linear-gradient(180deg, rgba(7, 25, 16, .55) 0%, rgba(7, 25, 16, .1) 30%, rgba(7, 25, 16, .18) 62%, rgba(7, 25, 16, .7) 100%); }
-@media (prefers-reduced-motion: reduce) { .hero-copy h1 span::after { animation: none; } }
 @media (max-width: 960px) { .bt-wash { min-height: 300px; } }
 .night-card { transition: border-color .7s ease, box-shadow .7s ease, background-color .7s ease; }
 .night-card.lit { border-color: rgba(255, 210, 130, .75); background-color: rgba(255, 190, 100, .07);
   box-shadow: 0 -10px 34px rgba(255, 178, 84, .22), inset 0 1px 0 rgba(255, 224, 153, .25); }
+
+/* ---------- Phones + tablets: highlights as the stacking card deck (user 27 Nov: "the fold-over menu vibe we like") ---------- */
+@media (max-width: 960px) {
+  .bento { display: block; }
+  .bt { position: sticky; top: calc(72px + var(--i) * 12px); min-height: min(460px, 68svh); margin-bottom: 18px;
+    box-shadow: 0 -14px 34px rgba(5, 24, 13, .28); }
+  .bt::before { content: attr(data-n); position: absolute; top: 12px; left: 12px; z-index: 2;
+    font-family: var(--head); font-size: 1rem; letter-spacing: .08em; color: var(--forest-deep);
+    background: var(--gold-lt); border-radius: 999px; padding: 3px 11px; }
+  .bt-range, .bt-pizza, .bt-lapa, .bt-wash { min-height: min(460px, 68svh); }
+}
+
+/* ---------- Game on phones (user 27 Nov): nothing covers the range; Swing sits right under the game ---------- */
+@media (max-width: 960px) {
+  #pit .pit-panel { display: flex; flex-direction: column; }
+  #pit #swingBtn { order: -1; min-height: 52px; font-size: 1rem; }
+}
+@media (max-width: 640px) {
+  .stage-box { display: flex; flex-direction: column; }
+  .stage-overlay { position: static; order: 2; display: flex; align-items: center; gap: 8px; padding: 8px 10px;
+    background: #0b2015; border-top: 1px solid rgba(255, 224, 153, .2); pointer-events: auto; }
+  .stage-callout { max-width: none; flex: 1; min-width: 0; padding: 6px 10px; background: none; border: 0; -webkit-backdrop-filter: none; backdrop-filter: none; }
+  .stage-callout strong { font-size: .95rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .mode-pills { position: static; flex-direction: row; gap: 6px; flex-shrink: 0; }
+  .mode-pills .mini-pill { padding: 0 12px; font-size: .78rem; }
+  .power-bar-wrap { order: 3; }
+  #pitCanvas { order: 1; aspect-ratio: 4 / 3.2; }
+}

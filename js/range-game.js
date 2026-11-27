@@ -41,6 +41,7 @@
     oy = (H - IH * s) * 0.75;
     teeY = H - Math.max(30 * dpr, H * 0.1);
     yTeeImg = (teeY - oy) / s;
+    if (teePad) { teePad.style.bottom = 'auto'; teePad.style.top = (canvas.offsetTop + teeY / dpr - 70) + 'px'; } // the swipe pad sits on the ball
     if (!running) draw();
   }
 

@@ -4,7 +4,8 @@
   'use strict';
   var hero = document.getElementById('home'), cv = document.getElementById('heroBalls');
   if (!hero || !cv) return;
-  var g = cv.getContext('2d'), reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  // user 27 Nov: the balls must move on phones with reduced motion switched on too; they only move on the drop-in, a tap or a scroll
+  var g = cv.getContext('2d'), reduce = false;
   var W = 0, H = 0, dpr = 1, floor = 0, balls = [], MAX = 60, running = false, last = 0;
   var ptr = { x: -1e4, y: -1e4, vx: 0, vy: 0, t: 0 };
 
@@ -113,6 +114,19 @@
     if (e.target.closest('a, button, .hero-sub, h1, .status-pill')) return;
     var r = hero.getBoundingClientRect(); add(e.clientX - r.left, Math.max(0, e.clientY - r.top - 20));
   });
+
+  // scroll bounce: a quick swipe up or down kicks the balls into the air; they settle once the scrolling stops
+  var lastY = scrollY;
+  addEventListener('scroll', function () {
+    var dy = scrollY - lastY; lastY = scrollY;
+    if (!visible || Math.abs(dy) < 3) return;
+    var kick = Math.min(950, Math.abs(dy) * 16);
+    balls.forEach(function (b) {
+      if (b.y < floor - b.r - 40) return; // already flying
+      b.vy -= kick * (0.55 + Math.random() * 0.6); b.vx += (Math.random() - 0.5) * kick * 0.6; b.sleep = false;
+    });
+    wake();
+  }, { passive: true });
 
   if ('IntersectionObserver' in window) new IntersectionObserver(function (es) { visible = es[0].isIntersecting; if (visible) wake(); }).observe(hero);
   addEventListener('resize', size);
