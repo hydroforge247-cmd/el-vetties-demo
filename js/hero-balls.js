@@ -5,7 +5,7 @@
   var hero = document.getElementById('home'), cv = document.getElementById('heroBalls');
   if (!hero || !cv) return;
   var g = cv.getContext('2d'), reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
-  var W = 0, H = 0, dpr = 1, floor = 0, balls = [], MAX = 26, running = false, last = 0;
+  var W = 0, H = 0, dpr = 1, floor = 0, balls = [], MAX = 60, running = false, last = 0;
   var ptr = { x: -1e4, y: -1e4, vx: 0, vy: 0, t: 0 };
 
   var sprites = {}; // one pre-drawn ball per size bucket: shading + dimples, cheap to blit
@@ -119,7 +119,7 @@
   size();
   // the first bucket tips out once the loader has gone
   function start() {
-    for (var i = 0; i < (W < 640 ? 9 : 14); i++) (function (i) {
+    for (var i = 0; i < (W < 640 ? 14 : 24); i++) (function (i) {
       setTimeout(function () { add(W * (0.08 + Math.random() * 0.84), -30 - Math.random() * 60); }, reduce ? 0 : i * 140);
     })(i);
   }

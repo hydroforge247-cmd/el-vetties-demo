@@ -21,6 +21,7 @@
   for (var i = 0; i < N; i++) html += bulb(i);
   host.innerHTML = html;
   var bulbs = [].slice.call(host.querySelectorAll('.pd'));
+  var cards = [].slice.call(sec.querySelectorAll('.night-card'));
   var order = bulbs.map(function (_, i) { return i; }).sort(function (a, b) { return Math.abs(a - (N - 1) / 2) - Math.abs(b - (N - 1) / 2); }); // middle out
 
   function update() {
@@ -30,6 +31,8 @@
     var lit = Math.floor(p * (N + 0.999));
     order.forEach(function (idx, k) { bulbs[idx].classList.toggle('on', k < lit); });
     sec.style.setProperty('--lit', (lit / N).toFixed(3));
+    // each card warms up once its top is well into the screen (user 27 Nov: the lower cards never lit)
+    cards.forEach(function (c) { c.classList.toggle('lit', reduce || c.getBoundingClientRect().top < vh * 0.82); });
   }
   var ticking = false;
   addEventListener('scroll', function () { if (!ticking) { ticking = true; requestAnimationFrame(function () { ticking = false; update(); }); } }, { passive: true });
