@@ -149,6 +149,38 @@ body { background: var(--cream); }
 [data-theme="night"] :is(.snd:not([aria-pressed="true"]), .btn-ember, .score-card) { background: #8F2F06; }
 [data-theme="night"] .pass-box { background: rgba(255, 255, 255, .07); border-color: rgba(255, 224, 153, .2); }
 
+/* ---------- Hero: range balls on the lawn (hero-balls.js) ---------- */
+.hero-balls { position: absolute; inset: 0; width: 100%; height: 100%; z-index: 1; pointer-events: none; }
+.hero-scrim { background:
+  linear-gradient(180deg, rgba(7, 25, 16, .55) 0%, rgba(7, 25, 16, .12) 30%, rgba(7, 25, 16, .2) 62%, rgba(7, 25, 16, .7) 100%),
+  radial-gradient(60% 45% at 50% 50%, rgba(7, 25, 16, .38), rgba(7, 25, 16, 0) 100%); }
+.hero-copy h1 { text-shadow: 0 4px 24px rgba(0, 0, 0, .6); }
+.mouse-cue { display: none; }
+.hero { cursor: default; }
+
+/* ---------- Lapa lights over the weekly rhythm (lapa-lights.js) ---------- */
+.nights-sec { --lit: 0; background:
+  radial-gradient(70% 55% at 50% 0%, rgba(255, 178, 84, calc(.26 * var(--lit))), rgba(255, 178, 84, 0) 70%),
+  #08180f; transition: background .9s ease; }
+.lapa-lights { position: relative; height: 190px; margin-bottom: 4px; pointer-events: none; }
+.thatch { position: absolute; left: 0; right: 0; top: 0; height: 26px; z-index: 2;
+  background: repeating-linear-gradient(100deg, #8a6a3c 0 3px, #6e5230 3px 5px, #a9844c 5px 7px, #5d4428 7px 9px);
+  clip-path: polygon(0 0, 100% 0, 100% 70%, 97% 100%, 93% 72%, 89% 98%, 85% 70%, 80% 100%, 76% 74%, 71% 96%, 67% 70%, 62% 100%, 58% 72%, 53% 98%, 49% 70%, 44% 100%, 40% 74%, 35% 96%, 31% 70%, 26% 100%, 22% 72%, 17% 98%, 13% 70%, 8% 100%, 4% 72%, 0 96%);
+  box-shadow: 0 6px 18px rgba(0, 0, 0, .4); }
+.pd { position: absolute; top: 14px; left: var(--x); transform: translateX(-50%); width: 40px; }
+.pd svg { display: block; overflow: visible; }
+.pd-glass { fill: rgba(190, 200, 195, .16); stroke: rgba(220, 228, 224, .35); stroke-width: 1; transition: fill .9s ease; }
+.pd-fil { stroke: #5b4a3a; transition: stroke .9s ease; }
+.pd-glow { position: absolute; left: 50%; top: calc(var(--len) + 30px); width: 150px; height: 150px; margin: -75px 0 0 -75px; border-radius: 50%;
+  background: radial-gradient(circle, rgba(255, 196, 102, .55), rgba(255, 170, 70, .12) 45%, rgba(255, 170, 70, 0) 70%);
+  opacity: 0; transition: opacity .9s ease; }
+.pd.on .pd-glass { fill: rgba(255, 214, 140, .9); }
+.pd.on .pd-fil { stroke: #fff4d6; }
+.pd.on .pd-glow { opacity: 1; animation: pd-ignite 1.1s ease-out; }
+@keyframes pd-ignite { 0% { opacity: 0; } 18% { opacity: .7; } 26% { opacity: .2; } 40% { opacity: .85; } 100% { opacity: 1; } }
+@media (max-width: 640px) { .lapa-lights { height: 170px; } .pd-glow { width: 110px; height: 110px; margin: -55px 0 0 -55px; } }
+@media (prefers-reduced-motion: reduce) { .pd.on .pd-glow { animation: none; } }
+
 /* ---------- Polish ---------- */
 .hero-sub { /* frosted "ice" box for text over the photo */
   background: rgba(7, 25, 16, .32); border: 1px solid rgba(255, 255, 255, .16); border-radius: 16px;

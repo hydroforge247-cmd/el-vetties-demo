@@ -32,7 +32,7 @@
   var W = 0, H = 0, dpr = 1, s = 1, ox = 0, oy = 0, teeY = 0, yTeeImg = 0, unit = 1;
 
   function layout() {
-    dpr = Math.min(window.devicePixelRatio || 1, 1.5);
+    dpr = Math.min(window.devicePixelRatio || 1, 2);
     var cw = canvas.clientWidth || 760, ch = canvas.clientHeight || 430;
     canvas.width = Math.round(cw * dpr); canvas.height = Math.round(ch * dpr);
     W = canvas.width; H = canvas.height; unit = H / 430;
@@ -157,23 +157,78 @@
     if (t < 0.95) { var q = (t - 0.7) / 0.25; return A0 - 1.9 * (1 - Math.pow(1 - q, 2)); }
     return A0 - 1.9;
   }
+  // Real club shapes (user 27 Nov: "looks like a miniature axe"; the club must change with the choice).
+  // len = share of the stage height, w/h = head size in stage units, graphite = driver shaft.
+  var KIT = {
+    wedge: { len: 0.26, w: 17, h: 12, graphite: false },
+    iron: { len: 0.29, w: 19, h: 9, graphite: false },
+    driver: { len: 0.34, w: 27, h: 15, graphite: true }
+  };
+  function clubKind() { return ['wedge', 'iron', 'iron', 'driver'][activeClub]; }
+  function drawHead(kind, w, h) { // head frame: heel at the origin, toe to the right (+x), sole down (+y)
+    var u = unit;
+    if (kind === 'driver') {
+      var cg = g.createRadialGradient(w * 0.4 * u, -h * 0.55 * u, 1, w * 0.5 * u, -h * 0.3 * u, w * 0.7 * u);
+      cg.addColorStop(0, '#5b6670'); cg.addColorStop(0.45, '#1f262c'); cg.addColorStop(1, '#0b0f12');
+      g.fillStyle = cg; g.beginPath();
+      g.moveTo(0, -h * 0.35 * u);
+      g.bezierCurveTo(w * 0.1 * u, -h * 1.05 * u, w * 1.05 * u, -h * 1.1 * u, w * 1.04 * u, -h * 0.25 * u);
+      g.bezierCurveTo(w * 1.03 * u, h * 0.35 * u, w * 0.6 * u, h * 0.45 * u, w * 0.15 * u, h * 0.32 * u);
+      g.quadraticCurveTo(-1 * u, h * 0.2 * u, 0, -h * 0.35 * u); g.fill();
+      g.strokeStyle = '#c9d2d8'; g.lineWidth = 1.3 * u; // silver face edge along the bottom
+      g.beginPath(); g.moveTo(w * 0.12 * u, h * 0.28 * u); g.quadraticCurveTo(w * 0.6 * u, h * 0.42 * u, w * 1.0 * u, -h * 0.05 * u); g.stroke();
+      g.strokeStyle = 'rgba(255,255,255,.35)'; g.lineWidth = 1 * u; // crown sheen
+      g.beginPath(); g.moveTo(w * 0.25 * u, -h * 0.7 * u); g.quadraticCurveTo(w * 0.55 * u, -h * 0.95 * u, w * 0.85 * u, -h * 0.7 * u); g.stroke();
+      return;
+    }
+    var top = kind === 'wedge' ? -h * 0.95 : -h * 0.75;
+    var sg = g.createLinearGradient(0, top * u, 0, h * 0.4 * u);
+    sg.addColorStop(0, '#ffffff'); sg.addColorStop(0.45, '#dfe5e9'); sg.addColorStop(0.8, '#a7b1b8'); sg.addColorStop(1, '#6f7a82');
+    g.fillStyle = sg; g.beginPath();
+    g.moveTo(-0.5 * u, -h * 0.3 * u);
+    g.lineTo(w * 0.95 * u, top * u); // top line rises toward the toe
+    g.quadraticCurveTo((w + 4) * u, (top + 1) * u, (w + 2.5) * u, h * 0.15 * u); // rounded toe
+    g.quadraticCurveTo((w + 1.5) * u, h * 0.42 * u, (w - 2) * u, h * 0.42 * u);
+    g.lineTo(1.5 * u, h * 0.42 * u); // sole
+    g.quadraticCurveTo(-1.5 * u, h * 0.38 * u, -0.5 * u, -h * 0.3 * u); g.fill();
+    g.strokeStyle = 'rgba(55, 64, 70, .55)'; g.lineWidth = 0.8 * u; g.stroke();
+    g.strokeStyle = 'rgba(70, 80, 88, .45)'; g.lineWidth = 0.7 * u; // face grooves
+    var n = kind === 'wedge' ? 6 : 5;
+    for (var i = 0; i < n; i++) {
+      var y = h * 0.3 - i * (h * (kind === 'wedge' ? 1.05 : 0.85) / n);
+      g.beginPath(); g.moveTo(3 * u, y * u); g.lineTo((w - 3) * u, (y - 1.2) * u); g.stroke();
+    }
+  }
   function drawClub(t) {
-    var b = proj(0, 0, 0), r = ballR(b.k), L = H * 0.3;
+    var k = KIT[clubKind()], b = proj(0, 0, 0), r = ballR(b.k), L = H * k.len, u = unit;
     var fade = t < 1 ? 1 : Math.max(0, 1 - (t - 1) / 0.4); if (!fade) return; // the club leaves once the ball is away
-    var hx = b.x - L * Math.cos(A0) - r * 1.4, hy = b.y - L * Math.sin(A0) - r * 0.4; // hands
-    var a = clubAngle(t), ex = hx + Math.cos(a) * L, ey = hy + Math.sin(a) * L;
+    // address: the head rests just left of the ball, its toe touching it, sole on the grass
+    var tx = b.x - (k.w + 2) * u - r * 0.6, ty = b.y + r * 0.55 - k.h * 0.42 * u;
+    var hx = tx - L * Math.cos(A0), hy = ty - L * Math.sin(A0); // hands (grip end)
+    var a = clubAngle(t), ca = Math.cos(a), sa = Math.sin(a), ex = hx + ca * L, ey = hy + sa * L;
     g.save(); g.globalAlpha = fade; g.lineCap = 'round';
-    g.strokeStyle = 'rgba(0,0,0,.28)'; g.lineWidth = 5 * unit; g.beginPath(); g.moveTo(hx + 3 * unit, hy + 4 * unit); g.lineTo(ex + 3 * unit, ey + 4 * unit); g.stroke();
-    var sg = g.createLinearGradient(hx, hy, ex, ey); sg.addColorStop(0, '#9aa5ad'); sg.addColorStop(0.5, '#eef3f6'); sg.addColorStop(1, '#8d979e');
-    g.strokeStyle = sg; g.lineWidth = 3.2 * unit; g.beginPath(); g.moveTo(hx, hy); g.lineTo(ex, ey); g.stroke();
-    g.strokeStyle = '#151a17'; g.lineWidth = 6.5 * unit; // grip
-    g.beginPath(); g.moveTo(hx - Math.cos(a) * 6 * unit, hy - Math.sin(a) * 6 * unit); g.lineTo(hx + Math.cos(a) * L * 0.2, hy + Math.sin(a) * L * 0.2); g.stroke();
-    g.fillStyle = '#f7f4ea'; g.beginPath(); g.arc(hx, hy, 7.5 * unit, 0, Math.PI * 2); g.fill(); // glove
-    g.translate(ex, ey); g.rotate(a - Math.PI / 2); // iron head
-    var hg = g.createLinearGradient(-9 * unit, 0, 13 * unit, 0); hg.addColorStop(0, '#c9d1d6'); hg.addColorStop(0.5, '#ffffff'); hg.addColorStop(1, '#7f8a91');
-    g.fillStyle = hg; g.beginPath();
-    g.moveTo(-4 * unit, -3 * unit); g.lineTo(15 * unit, -1 * unit); g.quadraticCurveTo(19 * unit, 4 * unit, 14 * unit, 8 * unit); g.lineTo(-5 * unit, 6 * unit); g.closePath(); g.fill();
-    g.strokeStyle = 'rgba(40,48,52,.6)'; g.lineWidth = 1; g.stroke();
+    g.strokeStyle = 'rgba(0,0,0,.22)'; g.lineWidth = 4 * u; // soft shadow
+    g.beginPath(); g.moveTo(hx + 3 * u, hy + 5 * u); g.lineTo(ex + 3 * u, ey + 5 * u); g.stroke();
+    // shaft: thin steel (or black graphite for the driver), tapering toward the head
+    var sg = g.createLinearGradient(hx - sa * 2, hy + ca * 2, hx + sa * 2, hy - ca * 2);
+    if (k.graphite) { sg.addColorStop(0, '#0d1114'); sg.addColorStop(0.5, '#4a5560'); sg.addColorStop(1, '#0d1114'); }
+    else { sg.addColorStop(0, '#7d878e'); sg.addColorStop(0.5, '#f4f7f9'); sg.addColorStop(1, '#7d878e'); }
+    g.strokeStyle = sg; g.lineWidth = 2.6 * u; g.beginPath(); g.moveTo(hx, hy); g.lineTo(hx + ca * L * 0.6, hy + sa * L * 0.6); g.stroke();
+    g.lineWidth = 1.9 * u; g.beginPath(); g.moveTo(hx + ca * L * 0.6, hy + sa * L * 0.6); g.lineTo(ex, ey); g.stroke();
+    g.strokeStyle = '#0f0f0f'; g.lineWidth = 3 * u; // black ferrule + hosel into the head
+    g.beginPath(); g.moveTo(ex - ca * 7 * u, ey - sa * 7 * u); g.lineTo(ex - ca * 5.5 * u, ey - sa * 5.5 * u); g.stroke();
+    g.strokeStyle = k.graphite ? '#1a2026' : '#c3cbd0'; g.lineWidth = 3.2 * u;
+    g.beginPath(); g.moveTo(ex - ca * 5.5 * u, ey - sa * 5.5 * u); g.lineTo(ex, ey); g.stroke();
+    // grip: tapered rubber, thicker at the butt, a light wrap line
+    var gl = L * 0.26, gx = hx + ca * gl, gy2 = hy + sa * gl;
+    g.fillStyle = '#1b1e1c'; g.beginPath();
+    g.moveTo(hx - sa * 3.6 * u, hy + ca * 3.6 * u); g.lineTo(gx - sa * 2.4 * u, gy2 + ca * 2.4 * u);
+    g.lineTo(gx + sa * 2.4 * u, gy2 - ca * 2.4 * u); g.lineTo(hx + sa * 3.6 * u, hy - ca * 3.6 * u);
+    g.arc(hx, hy, 3.6 * u, a - Math.PI / 2, a + Math.PI / 2, true); g.fill();
+    g.strokeStyle = 'rgba(255,255,255,.12)'; g.lineWidth = 0.8 * u;
+    for (var i = 1; i < 6; i++) { var q = gl * i / 6, w = 3.6 - 1.2 * i / 6; g.beginPath(); g.moveTo(hx + ca * q - sa * w * u, hy + sa * q + ca * w * u); g.lineTo(hx + ca * (q + 4 * u) + sa * w * u, hy + sa * (q + 4 * u) - ca * w * u); g.stroke(); }
+    g.translate(ex, ey); g.rotate(a - A0); // the head turns with the swing; level with the grass at address
+    drawHead(clubKind(), k.w, k.h);
     g.restore();
   }
   function drawTracer(sh, upto) {
@@ -236,14 +291,15 @@
   // ---- game flow ----
   function launch() {
     if (shot) return;
-    var c = CLUBS[activeClub], power = 0.84 + needleVal * 0.2, dist = Math.round(c.dist * power);
-    var aim = aimLat(dist), drift = windMps * 0.85 + needleSigned * 12;
+    // user 27 Nov: a range never gives you extra; the sweet spot is the club's full distance, a miss either side falls short
+    var c = CLUBS[activeClub], power = 1 - Math.abs(needleSigned) * 0.3, dist = Math.round(c.dist * power);
+    var aim = aimLat(dist), drift = windMps * 0.85 + needleSigned * 4;
     bucketLeft = bucketLeft > 1 ? bucketLeft - 1 : 12;
     shot = { phase: 'swing', t: 0, u: 0, bt: 0, bk: 0, club: c, dist: dist, aim: aim, drift: drift, lat: aim + drift,
       peak: c.peak * (0.9 + needleVal * 0.1), roll: dist * 0.06, flightT: 1.3 + dist / 200 * 1.3 };
     setStep(2);
-    say('SWINGING ' + c.name.toUpperCase() + '…', 'Sweet spot ' + Math.round(needleVal * 100) + '%. Watch the tracer.', 'BALL IN FLIGHT',
-      'Carry ' + dist + 'm with ' + Math.round(needleVal * 100) + '% sweet-spot contact.');
+    var len = Math.round(Math.abs(needleSigned) * 30), lenTxt = len > 1 ? len + '% short of the sweet spot' : 'pure, on the sweet spot';
+    say('SWINGING ' + c.name.toUpperCase() + '…', 'Struck ' + lenTxt + '. Watch the tracer.', 'BALL IN FLIGHT', 'Carry ' + dist + 'm, ' + lenTxt + '.');
     if (telCarry) telCarry.textContent = dist + ' m'; if (telApex) telApex.textContent = c.peak + ' m';
     if (telBucket) telBucket.textContent = bucketLeft + ' left';
     if (reduce) { shot.phase = 'roll'; shot.t = 2; shot.u = 1; shot.bt = 1; finish(); draw(); return; }
@@ -275,7 +331,7 @@
       var pos = 50 + Math.sin(needlePhase) * 44;
       needleSigned = (pos - 50) / 44; needleVal = Math.max(0.55, 1 - Math.abs(needleSigned) * 0.45);
       if (powerNeedle) powerNeedle.style.left = pos.toFixed(1) + '%';
-      if (powerPct) powerPct.textContent = Math.round(needleVal * 100) + '%';
+      if (powerPct) { var pw = Math.round(Math.abs(needleSigned) * 30); powerPct.textContent = pw > 1 ? pw + '% short' : 'pure'; }
     }
     if (shot) {
       shot.t += dt;
