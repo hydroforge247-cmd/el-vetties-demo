@@ -312,7 +312,7 @@
     var pos = 50 + Math.sin((t - needleT0) / 1000 * 3.1) * 44;
     needleSigned = (pos - 50) / 44; needleVal = Math.max(0.55, 1 - Math.abs(needleSigned) * 0.45);
     if (powerNeedle) powerNeedle.style.left = pos.toFixed(2) + '%';
-    if (powerPct) { var pw = Math.round(Math.abs(needleSigned) * 30); powerPct.textContent = pw > 1 ? pw + '% short' : 'pure'; }
+    if (powerPct) { var pw = Math.round(Math.abs(needleSigned) * 30); powerPct.textContent = pw + '% short'; /* one steady label, no word swap at the sweet spot (user 27 Nov) */ }
   }
   var resetTimer = null;
   function swingLabel() { if (swingBtn) swingBtn.textContent = shot ? 'Start Again' : 'Swing Now (Lock Sweet Spot)'; }
