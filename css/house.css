@@ -101,6 +101,18 @@ body { background: var(--cream); }
 }
 .tee-pad:focus-visible { outline: 3px dashed var(--gold-lt); outline-offset: -6px; }
 .stage-callout, .power-bar-wrap { -webkit-backdrop-filter: blur(6px); backdrop-filter: blur(6px); }
+/* user 27 Nov: the game was too wide and tall to fit a laptop screen; narrower column, compact control panel */
+#pit > .wrap { max-width: 1040px; }
+#pit .pit-grid { gap: 18px; align-items: start; }
+@media (min-width: 961px) { #pit .pit-grid { grid-template-columns: minmax(0, 1.55fr) minmax(0, 1fr); } }
+#pit .pit-panel { padding: 18px; gap: 10px; }
+#pit .pit-panel h3 { font-size: 1.3rem; margin: 0; }
+#pit .pit-panel p { font-size: .88rem; line-height: 1.45; }
+#pit .step-chip { padding: 4px 9px; font-size: .72rem; }
+#pit .tel-grid { padding: 10px 12px; }
+#pit .btn { min-height: 46px; }
+#pit .sec-lead { margin-bottom: 18px; }
+@media (min-width: 961px) { #pit.pad-y { padding: 44px 0 52px; } }
 .power-bar-wrap { position: static; margin: 0; border-radius: 0; border-width: 1px 0 0; }
 @media (max-width: 640px) {
   #pitCanvas { aspect-ratio: 4 / 3.4; }
@@ -216,3 +228,4 @@ html { -webkit-tap-highlight-color: transparent; }
   .night-card { padding: 16px 18px; gap: 4px; }
   .night-card h3 { font-size: 1.25rem; }
 }
+.bt-range > img { object-position: 74% 50%; }
