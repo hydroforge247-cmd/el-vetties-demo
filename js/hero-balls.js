@@ -10,18 +10,17 @@
   var ptr = { x: -1e4, y: -1e4, vx: 0, vy: 0, t: 0 };
 
   var sprites = {}; // one pre-drawn ball per size bucket: shading + dimples, cheap to blit
-  function sprite(r) {
+  // user 27 Nov: the same photo-real ball as the day/night switch; the photo turns as it rolls,
+  // a fixed light layer on top keeps the sun on the same side
+  var photo = new Image(); photo.src = 'img/golf-ball.webp'; photo.onload = function () { sprites = {}; draw(); };
+  function sprite(r) { // fixed light: soft highlight top-left, shade bottom-right
     var k = Math.round(r * dpr); if (sprites[k]) return sprites[k];
     var c = document.createElement('canvas'), s = k * 2 + 4; c.width = c.height = s;
     var x = c.getContext('2d'), m = s / 2;
-    var rg = x.createRadialGradient(m - k * 0.35, m - k * 0.4, k * 0.1, m, m, k);
-    rg.addColorStop(0, '#ffffff'); rg.addColorStop(0.65, '#eef1ee'); rg.addColorStop(1, '#a9b3ad');
-    x.fillStyle = rg; x.beginPath(); x.arc(m, m, k, 0, 7); x.fill();
-    x.fillStyle = 'rgba(110, 124, 116, .28)';
-    for (var i = 0; i < 26; i++) { // dimples on a spiral
-      var a = i * 2.4, d = Math.sqrt(i / 26) * k * 0.86;
-      x.beginPath(); x.arc(m + Math.cos(a) * d, m + Math.sin(a) * d, k * 0.075, 0, 7); x.fill();
-    }
+    var sh = x.createRadialGradient(m - k * 0.38, m - k * 0.42, k * 0.05, m, m, k * 1.02);
+    sh.addColorStop(0, 'rgba(255,255,255,.55)'); sh.addColorStop(0.35, 'rgba(255,255,255,0)');
+    sh.addColorStop(0.75, 'rgba(40,50,45,.08)'); sh.addColorStop(1, 'rgba(30,40,35,.42)');
+    x.fillStyle = sh; x.beginPath(); x.arc(m, m, k, 0, 7); x.fill();
     return (sprites[k] = c);
   }
 
@@ -83,8 +82,11 @@
       g.beginPath(); g.ellipse(b.x + 2, floor - 1, b.r * (1 - Math.min(0.5, lift / 600)), b.r * 0.28, 0, 0, 7); g.fill();
       if (night) { g.save(); g.shadowColor = 'rgba(255, 240, 200, .8)'; g.shadowBlur = b.r; }
       g.save(); g.translate(b.x, b.y); g.rotate(b.rot);
-      var s = sprite(b.r); g.drawImage(s, -s.width / 2 / dpr, -s.height / 2 / dpr, s.width / dpr, s.height / dpr);
-      g.restore(); if (night) g.restore();
+      if (photo.complete && photo.naturalWidth) g.drawImage(photo, -b.r * 1.02, -b.r * 1.02, b.r * 2.04, b.r * 2.04);
+      else { g.fillStyle = '#f4f6f3'; g.beginPath(); g.arc(0, 0, b.r, 0, 7); g.fill(); }
+      g.restore();
+      var s = sprite(b.r); g.drawImage(s, b.x - s.width / 2 / dpr, b.y - s.height / 2 / dpr, s.width / dpr, s.height / dpr);
+      if (night) g.restore();
     });
   }
   function frame(now) {
