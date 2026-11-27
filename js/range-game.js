@@ -16,10 +16,10 @@
   var reduce = false; // owner's call 27 Nov: this site's motion is small and visitor-started, so it plays for everyone (phones on battery saver report reduced motion)
 
   var CLUBS = [
-    { name: 'Wedge · 50m', dist: 50, lat: -6, peak: 22, hex: '#FFE099' },
-    { name: '8-Iron · 100m', dist: 100, lat: 5, peak: 38, hex: '#F08A4B' },
-    { name: '5-Iron · 150m', dist: 150, lat: -5, peak: 56, hex: '#E8AE38' },
-    { name: 'Driver · 200m', dist: 200, lat: 4, peak: 74, hex: '#4ADE80' }
+    { name: 'Wedge · 50m', dist: 50, lat: -6, peak: 22, hex: '#4ADE80' },
+    { name: '8-Iron · 100m', dist: 100, lat: 5, peak: 38, hex: '#FACC15' },
+    { name: '5-Iron · 150m', dist: 150, lat: -5, peak: 56, hex: '#FB923C' },
+    { name: 'Driver · 200m', dist: 200, lat: 4, peak: 74, hex: '#F05252' }
   ];
   var activeClub = 1, aimDeg = 0, windMps = 4.5, totalScore = 0, bucketLeft = 12;
   var aerial = false, dusk = document.documentElement.dataset.theme === 'night';

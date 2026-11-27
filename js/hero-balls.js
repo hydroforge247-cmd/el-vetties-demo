@@ -6,7 +6,7 @@
   if (!hero || !cv) return;
   // user 27 Nov: the balls must move on phones with reduced motion switched on too; they only move on the drop-in, a tap or a scroll
   var g = cv.getContext('2d'), reduce = false;
-  var W = 0, H = 0, dpr = 1, floor = 0, balls = [], MAX = 60, running = false, last = 0;
+  var W = 0, H = 0, dpr = 1, floor = 0, balls = [], MAX = 60, running = false, last = 0, acc = 0;
   var touch = matchMedia('(pointer: coarse)').matches; // phones: lighter canvas, no glow, no tap-to-add (user 27 Nov)
   var ptr = { x: -1e4, y: -1e4, vx: 0, vy: 0, t: 0 };
 
@@ -91,8 +91,10 @@
     });
   }
   function frame(now) {
-    var dt = Math.min(0.033, (now - (last || now)) / 1000); last = now;
-    var awake = step(dt / 2) | step(dt / 2); // two sub-steps keep stacks from jittering
+    // fixed 1/120 s physics steps: slow phone frames no longer make the balls jump (user 27 Nov: choppy on mobile)
+    acc += Math.min(0.1, (now - (last || now)) / 1000); last = now;
+    var awake = false; while (acc >= 1 / 120) { awake = step(1 / 120) || awake; acc -= 1 / 120; }
+    if (!awake) awake = balls.some(function (b) { return !b.sleep; });
     draw();
     if (awake && visible) requestAnimationFrame(frame); else { running = false; last = 0; }
   }
