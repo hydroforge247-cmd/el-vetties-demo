@@ -297,3 +297,6 @@ html { -webkit-tap-highlight-color: transparent; }
 .btn, .bt, .gal-tile, .club-opt, .mini-pill, .p-opt, .cat-btn { transition: transform .15s ease, background-color .2s ease, color .2s ease; }
 .btn:active, .club-opt:active, .mini-pill:active, .p-opt:active, .cat-btn:active { transform: scale(.96); }
 .bt:active, .gal-tile:active { transform: scale(.985); }
+/* game buttons: no phone double-tap delay, no sticky hover tint on touch */
+#pit .btn, #pit .club-opt, #pit .mini-pill, .tee-pad { touch-action: manipulation; -webkit-user-select: none; user-select: none; }
+@media (hover: none) { #pit .btn-gold:hover { background: var(--gold); } #pit .club-opt:hover:not([aria-pressed="true"]) { background: rgba(255, 255, 255, .07); color: var(--light); border-color: rgba(255, 255, 255, .18); } }

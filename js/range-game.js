@@ -16,10 +16,10 @@
   var reduce = false; // owner's call 27 Nov: this site's motion is small and visitor-started, so it plays for everyone (phones on battery saver report reduced motion)
 
   var CLUBS = [
-    { name: 'Wedge · 50m', dist: 50, lat: -6, peak: 18, hex: '#FFE099' },
-    { name: '8-Iron · 100m', dist: 100, lat: 5, peak: 28, hex: '#F08A4B' },
-    { name: '5-Iron · 150m', dist: 150, lat: -5, peak: 36, hex: '#E8AE38' },
-    { name: 'Driver · 200m', dist: 200, lat: 4, peak: 44, hex: '#4ADE80' }
+    { name: 'Wedge · 50m', dist: 50, lat: -6, peak: 22, hex: '#FFE099' },
+    { name: '8-Iron · 100m', dist: 100, lat: 5, peak: 38, hex: '#F08A4B' },
+    { name: '5-Iron · 150m', dist: 150, lat: -5, peak: 56, hex: '#E8AE38' },
+    { name: 'Driver · 200m', dist: 200, lat: 4, peak: 74, hex: '#4ADE80' }
   ];
   var activeClub = 1, aimDeg = 0, windMps = 4.5, totalScore = 0, bucketLeft = 12;
   var aerial = false, dusk = document.documentElement.dataset.theme === 'night';
@@ -52,7 +52,7 @@
     var yImg = Math.max(VPY + 18, yTeeImg - (yTeeImg - Y200) * Math.pow(Math.max(0, d) / 200, 0.62));
     var k = (yImg - VPY) / (yTeeImg - VPY);
     var xImg = VPX + (TEEX - VPX) * k + lat * (yImg - VPY) * C;
-    var hImg = (h || 0) * (yImg - VPY) * C * 0.6;
+    var hImg = (h || 0) * (yImg - VPY) * C * 0.72; // user 27 Nov: long shots climb higher before they drop
     return { x: ox + xImg * s, y: oy + (yImg - hImg) * s, k: k };
   }
 
@@ -108,13 +108,22 @@
       g.lineTo(top.x, top.y + fw * 0.42); g.closePath(); g.fill();
       // our own yardage board left of each flag (user 27 Nov: the photo's boards were edited out): two posts, a white board, the number
       g.globalAlpha = 1;
-      var L = c.lat - 11.5, R = c.lat - 4, tl = proj(c.dist, L, 6), br = proj(c.dist, R, 2.4);
-      var bw = br.x - tl.x, bh = br.y - tl.y, minH = 17 * unit;
-      if (bh < minH) { var k = minH / bh, cx = (tl.x + br.x) / 2, cy = (tl.y + br.y) / 2; bw *= k; bh = minH; tl = { x: cx - bw / 2, y: cy - bh / 2 }; br = { x: cx + bw / 2, y: cy + bh / 2 }; }
-      var pl = proj(c.dist, L + 0.6, 0), pr = proj(c.dist, R - 0.6, 0);
-      g.strokeStyle = '#e9ece8'; g.lineWidth = Math.max(1, bw * 0.05);
-      g.beginPath(); g.moveTo(tl.x + bw * 0.12, br.y); g.lineTo(tl.x + bw * 0.12, Math.max(pl.y, br.y)); g.moveTo(br.x - bw * 0.12, br.y); g.lineTo(br.x - bw * 0.12, Math.max(pr.y, br.y)); g.stroke();
+      var side = c.lat < 0 ? -1 : 1, L = side < 0 ? c.lat - 11.5 : c.lat + 4, R = side < 0 ? c.lat - 4 : c.lat + 11.5, tl = proj(c.dist, L, 6), br = proj(c.dist, R, 2.4);
+      var bw = br.x - tl.x, bh = br.y - tl.y, minH = 15 * unit;
+      if (bh < minH) { bw *= minH / bh; bh = minH; }
+      var foot = proj(c.dist, (L + R) / 2, 0), boardBottom = foot.y - bh * 0.85; // the board always stands on its posts, posts in the grass
+      tl = { x: foot.x - bw / 2, y: boardBottom - bh }; br = { x: foot.x + bw / 2, y: boardBottom };
+      var pl = { y: foot.y }, pr = { y: foot.y };
+      // planted: shadow cast on the grass, two posts sunk into the ground with a scuffed earth patch at each foot
+      var gx1 = tl.x + bw * 0.14, gx2 = br.x - bw * 0.14, gy1 = Math.max(pl.y, br.y + 2), gy2 = Math.max(pr.y, br.y + 2), pw2 = Math.max(1.6, bw * 0.07);
+      g.fillStyle = 'rgba(12, 30, 14, .32)'; g.beginPath(); g.ellipse((gx1 + gx2) / 2 + bw * 0.18, (gy1 + gy2) / 2 + pw2 * 0.4, bw * 0.62, Math.max(1.5, bw * 0.07), 0, 0, 7); g.fill();
+      [[gx1, gy1], [gx2, gy2]].forEach(function (q) {
+        g.fillStyle = 'rgba(92, 70, 42, .55)'; g.beginPath(); g.ellipse(q[0], q[1], pw2 * 1.6, pw2 * 0.55, 0, 0, 7); g.fill();
+        var pg = g.createLinearGradient(q[0] - pw2 / 2, 0, q[0] + pw2 / 2, 0); pg.addColorStop(0, '#9aa29c'); pg.addColorStop(0.45, '#f4f6f2'); pg.addColorStop(1, '#7c847e');
+        g.fillStyle = pg; g.fillRect(q[0] - pw2 / 2, br.y - 1, pw2, q[1] - br.y + 1);
+      });
       g.fillStyle = 'rgba(0,0,0,.25)'; g.fillRect(tl.x + 1.5 * unit, tl.y + 1.5 * unit, bw, bh);
+      g.fillStyle = '#c9ccc6'; g.fillRect(tl.x + bw * 0.02, br.y - 1, bw * 0.98, Math.max(1.5, bh * 0.1)); // board edge thickness
       g.fillStyle = '#fbfaf5'; g.fillRect(tl.x, tl.y, bw, bh);
       g.strokeStyle = on ? c.hex : '#26302a'; g.lineWidth = Math.max(1.2, bh * (on ? 0.12 : 0.07)); g.strokeRect(tl.x, tl.y, bw, bh);
       g.fillStyle = '#0C2618'; g.font = '700 ' + Math.round(bh * 0.66) + 'px Oswald, Impact, sans-serif'; g.textAlign = 'center'; g.textBaseline = 'middle';
@@ -364,7 +373,7 @@
   // ---- controls ----
   document.querySelectorAll('.club-opt[data-club]').forEach(function (btn) {
     btn.addEventListener('click', function () {
-      if (shot) return;
+      if (shot) resetShot(); // user 27 Nov: club taps were ignored while the last shot settled (felt stuck)
       activeClub = Number(btn.getAttribute('data-club') || 1);
       document.querySelectorAll('.club-opt[data-club]').forEach(function (b, i) { b.setAttribute('aria-pressed', String(i === activeClub)); });
       var c = CLUBS[activeClub]; if (telCarry) telCarry.textContent = c.dist + ' m'; if (telApex) telApex.textContent = c.peak + ' m';

@@ -7,6 +7,7 @@
   // user 27 Nov: the balls must move on phones with reduced motion switched on too; they only move on the drop-in, a tap or a scroll
   var g = cv.getContext('2d'), reduce = false;
   var W = 0, H = 0, dpr = 1, floor = 0, balls = [], MAX = 60, running = false, last = 0;
+  var touch = matchMedia('(pointer: coarse)').matches; // phones: lighter canvas, no glow, no tap-to-add (user 27 Nov)
   var ptr = { x: -1e4, y: -1e4, vx: 0, vy: 0, t: 0 };
 
   var sprites = {}; // one pre-drawn ball per size bucket: shading + dimples, cheap to blit
@@ -26,7 +27,7 @@
 
   function size() {
     var r = hero.getBoundingClientRect();
-    dpr = Math.min(devicePixelRatio || 1, 2); sprites = {};
+    dpr = Math.min(devicePixelRatio || 1, touch ? 1.5 : 2); sprites = {};
     W = r.width; H = r.height; cv.width = W * dpr; cv.height = H * dpr;
     floor = H - Math.max(18, H * 0.04);
     balls.forEach(function (b) { b.x = Math.min(W - b.r, Math.max(b.r, b.x)); b.y = Math.min(b.y, floor - b.r); b.sleep = false; });
@@ -75,7 +76,7 @@
   }
   function draw() {
     g.setTransform(dpr, 0, 0, dpr, 0, 0); g.clearRect(0, 0, W, H);
-    var night = document.documentElement.dataset.theme === 'night';
+    var night = !touch && document.documentElement.dataset.theme === 'night';
     balls.forEach(function (b) {
       var lift = Math.max(0, floor - b.r - b.y);
       g.fillStyle = 'rgba(0, 0, 0, ' + (0.32 * Math.max(0.25, 1 - lift / 300)).toFixed(3) + ')';
@@ -111,7 +112,7 @@
   }, { passive: true });
   var down = null;
   hero.addEventListener('pointerdown', function (e) { down = { x: e.clientX, y: e.clientY }; }, { passive: true });
-  hero.addEventListener('pointerup', function (e) { // a tap on open lawn (not a button or the text box) drops a ball
+  if (!touch) hero.addEventListener('pointerup', function (e) { // a tap on open lawn (not a button or the text box) drops a ball
     if (!down || Math.hypot(e.clientX - down.x, e.clientY - down.y) > 10) return;
     if (e.target.closest('a, button, .hero-sub, h1, .status-pill')) return;
     var r = hero.getBoundingClientRect(); add(e.clientX - r.left, Math.max(0, e.clientY - r.top - 20));
@@ -131,7 +132,9 @@
   }, { passive: true });
 
   if ('IntersectionObserver' in window) new IntersectionObserver(function (es) { visible = es[0].isIntersecting; if (visible) wake(); }).observe(hero);
-  addEventListener('resize', size);
+  // phones fire resize whenever the address bar slides away mid-scroll; rebuilding the canvas then made the balls jitter
+  var lastW = innerWidth, lastH = innerHeight;
+  addEventListener('resize', function () { if (innerWidth === lastW && Math.abs(innerHeight - lastH) < 160) return; lastW = innerWidth; lastH = innerHeight; size(); });
   size();
   // the first bucket tips out once the loader has gone
   function start() {
