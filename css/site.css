@@ -27,10 +27,6 @@ main, footer { position: relative; z-index: 2; }
   filter: contrast(1.05) saturate(1.08);
   will-change: transform;
 }
-.golf-field-bg {
-  position: fixed; inset: 0; width: 100%; height: 100%; z-index: 1;
-  pointer-events: none;
-}
 img { max-width: 100%; height: auto; display: block; }
 a { color: inherit; }
 
@@ -54,11 +50,6 @@ a { color: inherit; }
   transform: scaleX(var(--doc, 0));
   pointer-events: none;
 }
-.ambient-canvas {
-  position: fixed; inset: 0; width: 100%; height: 100%; z-index: 45;
-  pointer-events: none;
-}
-
 /* ── Fixed Glass Header (Braai Wagon .top pattern) ──────────────── */
 .top {
   position: fixed; top: 0; left: 0; right: 0; z-index: 95;

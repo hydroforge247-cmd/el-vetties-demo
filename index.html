@@ -7,7 +7,7 @@
   <meta name="description" content="Family venue in Elspark, Germiston: pub, grill and pizza, a grass driving range, a car wash, a thatched lapa and a fenced kids' play area.">
   <meta property="og:title" content="EL'Vetties Family Venue &amp; Elspark Golf Driving Range">
   <meta property="og:description" content="Driving range, lapa, pizza and Sunday carvery at 26 Sapele St, Elspark, Germiston.">
-  <meta property="og:image" content="https://hydroforge247-cmd.github.io/el-vetties-demo/img/hero.jpg">
+  <meta property="og:image" content="https://hydroforge247-cmd.github.io/el-vetties-demo/img/hero.webp">
   <meta property="og:url" content="https://hydroforge247-cmd.github.io/el-vetties-demo/">
   <meta property="og:type" content="website">
   <meta name="robots" content="noindex,nofollow">
@@ -25,15 +25,13 @@
       <div class="ld-crest" aria-hidden="true"><img src="img/logo-256.webp" alt="" width="256" height="256"></div>
       <p class="ld-name">EL'Vetties</p>
       <p class="ld-tag">Teeing up your visit</p>
-      <div class="ld-green" aria-hidden="true"><span class="ld-cup"></span><span class="ld-flag"></span><span class="ld-ball"></span></div>
+      <div class="ld-shot" aria-hidden="true"><video class="ld-vid" src="img/loader-shot.mp4" poster="img/loader-shot.webp" muted playsinline preload="auto" disablepictureinpicture></video></div>
       <span class="ld-pct">0%</span>
     </div>
   </div>
   <a class="skip-link" href="#main">Skip to main content</a>
   <div class="progress" aria-hidden="true"></div>
-  <img class="golf-bg-photo" id="golfBgPhoto" src="img/golf-bg.jpg" alt="" aria-hidden="true">
-  <canvas class="golf-field-bg" id="golfFieldBg" aria-hidden="true"></canvas>
-  <canvas class="ambient-canvas" id="ambientCanvas" aria-hidden="true"></canvas>
+  <img class="golf-bg-photo" id="golfBgPhoto" src="img/golf-bg.webp" alt="" aria-hidden="true">
 
   <header class="top" id="topHeader">
     <div class="wrap top-inner">
@@ -57,8 +55,7 @@
       </nav>
       <div class="top-actions">
         <button type="button" class="theme-btn" id="themeBtn" aria-pressed="false" aria-label="Switch to night mode">
-          <svg class="sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4.5"/><path d="M12 2v2.5M12 19.5V22M2 12h2.5M19.5 12H22M4.9 4.9l1.8 1.8M17.3 17.3l1.8 1.8M4.9 19.1l1.8-1.8M17.3 6.7l1.8-1.8"/></svg>
-          <svg class="moon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20.5 14.6A8.5 8.5 0 0 1 9.4 3.5a8.5 8.5 0 1 0 11.1 11.1z"/></svg>
+          <span class="gball" aria-hidden="true"><img src="img/golf-ball.webp" alt="" width="112" height="112"><span class="gball-shade"></span></span>
         </button>
         <button type="button" class="snd" id="sndBtn" aria-pressed="false" aria-label="Toggle Highveld breeze and golf swing sound effects">
           Sound: Off
@@ -75,7 +72,7 @@
     <section class="hero" id="home" aria-labelledby="hero-h1">
       <div class="hero-pin">
         <div class="hero-bg">
-          <img src="img/hero.jpg" alt="Families relaxing under red and green market umbrellas next to EL'Vetties thatched lapa on a sunny Elspark afternoon">
+          <img src="img/hero.webp" alt="Families relaxing under red and green market umbrellas next to EL'Vetties thatched lapa on a sunny Elspark afternoon">
         </div>
         <div class="hero-scrim" aria-hidden="true"></div>
         <div class="hero-copy">
@@ -110,7 +107,7 @@
 
         <div class="tri-grid">
           <article class="tri-card">
-            <img src="img/range.jpg" alt="Elspark Golf Driving Range wide green grass fairway with distance marker boards and terracotta brick shelter">
+            <img src="img/range.webp" alt="Elspark Golf Driving Range wide green grass fairway with distance marker boards and terracotta brick shelter">
             <div class="tri-body">
               <span class="tri-kicker">Open 7 Days · 4.5★ Google</span>
               <h3>Elspark Driving Range</h3>
@@ -120,7 +117,7 @@
           </article>
 
           <article class="tri-card">
-            <img src="img/pizza.jpg" alt="Freshly baked EL'Vetties thin-crust ham and pineapple pizza with melted mozzarella and herbs">
+            <img src="img/pizza.webp" alt="Freshly baked EL'Vetties thin-crust ham and pineapple pizza with melted mozzarella and herbs">
             <div class="tri-body">
               <span class="tri-kicker">#1 Patron Favourite · 18+ Mentions</span>
               <h3>Thin-Crust Pizza &amp; Carvery</h3>
@@ -130,7 +127,7 @@
           </article>
 
           <article class="tri-card">
-            <img src="img/lapa-kids.jpg" alt="Dark timber picnic tables under the shaded thatched lapa overlooking the wooden kids jungle gym">
+            <img src="img/lapa-kids.webp" alt="Dark timber picnic tables under the shaded thatched lapa overlooking the wooden kids jungle gym">
             <div class="tri-body">
               <span class="tri-kicker">Family Favourite · Open Air</span>
               <h3>Thatched Lapa &amp; Kids' Play</h3>
@@ -161,31 +158,31 @@
         <div class="cyl-stage">
           <div class="cyl-ring" id="cylRing">
             <button type="button" class="cyl-card" data-lb-title="The Sunlit Lapa &amp; Lawn" data-lb-desc="Red and green market umbrellas beside the thatched lapa on a bright Elspark afternoon.">
-              <img src="img/hero.jpg" alt="Sunny outdoor lawn and market umbrellas beside EL'Vetties thatched lapa">
+              <img src="img/hero.webp" alt="Sunny outdoor lawn and market umbrellas beside EL'Vetties thatched lapa">
               <span class="cyl-cap"><strong>Sunlit Lapa</strong><span>Outdoor tables &amp; umbrellas</span></span>
             </button>
             <button type="button" class="cyl-card" data-lb-title="Elspark Golf Driving Range" data-lb-desc="Wide green grass fairway with distance marker boards, picnic benches, and terracotta brick shelter.">
-              <img src="img/range.jpg" alt="Elspark Golf Driving Range green grass fairway">
+              <img src="img/range.webp" alt="Elspark Golf Driving Range green grass fairway">
               <span class="cyl-cap"><strong>Open Fairway</strong><span>4.5★ · Open 7 days</span></span>
             </button>
             <button type="button" class="cyl-card" data-lb-title="Famous Thin-Crust Pizza" data-lb-desc="EL'Vetties' #1 most-praised menu item across 250+ Google Maps reviews.">
-              <img src="img/pizza.jpg" alt="Freshly baked EL'Vetties thin-crust pizza">
+              <img src="img/pizza.webp" alt="Freshly baked EL'Vetties thin-crust pizza">
               <span class="cyl-cap"><strong>Hot Pizza</strong><span>Thin-crust patron favourite</span></span>
             </button>
             <button type="button" class="cyl-card" data-lb-title="Lapa Overlooking the Jungle Gym" data-lb-desc="Relax at dark wooden picnic benches with direct sightlines to the fenced kids' playground.">
-              <img src="img/lapa-kids.jpg" alt="Shaded benches under the thatched lapa overlooking the kids wooden jungle gym">
+              <img src="img/lapa-kids.webp" alt="Shaded benches under the thatched lapa overlooking the kids wooden jungle gym">
               <span class="cyl-cap"><strong>Kids In Sight</strong><span>Fenced jungle gym &amp; slides</span></span>
             </button>
             <button type="button" class="cyl-card" data-lb-title="Indoor Pub &amp; Pool Room" data-lb-desc="Two red-felt pool tables, big-screen rugby, Springboks &amp; Emirates Lions banners, karaoke &amp; live music.">
-              <img src="img/pub.jpg" alt="EL'Vetties indoor pub with two red-felt pool tables and rugby banners">
+              <img src="img/pub.webp" alt="EL'Vetties indoor pub with two red-felt pool tables and rugby banners">
               <span class="cyl-cap"><strong>Pool &amp; Rugby</strong><span>Two red-felt tables</span></span>
             </button>
             <button type="button" class="cyl-card" data-lb-title="Aerial View of 26 Sapele Street" data-lb-desc="Fenced grass play area, covered function marquee, thatched lapa, main pub, and on-site parking.">
-              <img src="img/aerial.jpg" alt="Real aerial drone view of 26 Sapele St Elspark showing play area, lapa, and parking">
+              <img src="img/aerial.webp" alt="Real aerial drone view of 26 Sapele St Elspark showing play area, lapa, and parking">
               <span class="cyl-cap"><strong>Aerial Grounds</strong><span>26 Sapele St, Elspark</span></span>
             </button>
             <button type="button" class="cyl-card" data-lb-title="Elspark Nights Until Midnight" data-lb-desc="Lit thatched roof, palms, and packed East Rand parking — open Tue–Sat until 00:00.">
-              <img src="img/dusk.jpg" alt="EL'Vetties lit thatched lapa and venue exterior at dusk">
+              <img src="img/dusk.webp" alt="EL'Vetties lit thatched lapa and venue exterior at dusk">
               <span class="cyl-cap"><strong>After Dusk</strong><span>Open Tue–Sat to 00:00</span></span>
             </button>
           </div>
@@ -494,7 +491,7 @@
           </div>
 
           <div class="map-card">
-            <img src="img/aerial.jpg" alt="Real aerial photo of EL'Vetties Family Venue and Elspark Golf Driving Range at 26 Sapele St">
+            <img src="img/aerial.webp" alt="Real aerial photo of EL'Vetties Family Venue and Elspark Golf Driving Range at 26 Sapele St">
             <div class="map-scrim" aria-hidden="true"></div>
             <div class="map-pin-drop" aria-hidden="true"></div>
             <div class="map-content">
@@ -545,7 +542,7 @@
       <button type="button" class="close-btn" id="closeLb" aria-label="Close photo">×</button>
     </div>
     <div class="modal-body">
-      <img id="lbImg" src="img/hero.jpg" alt="" style="width:100%;border-radius:14px;margin-bottom:12px">
+      <img id="lbImg" src="img/hero.webp" alt="" style="width:100%;border-radius:14px;margin-bottom:12px">
       <p id="lbDesc" style="margin:0;color:var(--muted)"></p>
     </div>
   </dialog>
