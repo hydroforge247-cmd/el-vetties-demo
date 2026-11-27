@@ -1,69 +1,153 @@
-/* NFC house layer for EL'Vetties: loader, day/night switch, night palette, small polish. */
+/* NFC house layer for EL'Vetties (27 Nov redo): loader, day/night switch, night palette, calm full-width layout.
+   User 27 Nov: desktop felt crowded and slow, so no sticky stacking sheets, no blurred glass, no moving photo behind
+   the page. Sections are flat full-width grounds; photos sit in compact bento grids. */
 
-/* ---------- Loader ---------- */
+/* ---------- Loader: code-drawn range shot (house.js) ---------- */
 html.ld-on, html.ld-on body { overflow: hidden; }
 .ld {
   position: fixed; inset: 0; z-index: 9999; display: grid; place-items: center; text-align: center;
-  background: radial-gradient(120% 80% at 50% 38%, #1B4A2E 0%, var(--forest-deep) 62%);
-  color: var(--light); transition: opacity .6s ease, visibility .6s;
+  background: var(--forest-deep); color: var(--light); transition: opacity .6s ease, visibility .6s;
 }
 .ld-out { opacity: 0; visibility: hidden; }
-.ld-inner { display: grid; justify-items: center; gap: 14px; padding: 24px; }
-.ld-crest {
-  width: 104px; height: 104px; border-radius: 50%; display: grid; place-items: center;
-  background: var(--forest-deep); border: 3px solid var(--gold);
-  box-shadow: 0 0 0 8px rgba(232, 174, 56, .12), 0 0 48px rgba(232, 174, 56, .25);
-  font-family: var(--head); font-weight: 700; font-size: 2.3rem; color: var(--gold-lt);
-  animation: ld-breathe 2.4s ease-in-out infinite;
-}
-@keyframes ld-breathe { 50% { box-shadow: 0 0 0 14px rgba(232, 174, 56, .06), 0 0 64px rgba(232, 174, 56, .35); } }
-.ld-name { margin: 0; font-family: var(--head); font-size: 1.7rem; letter-spacing: .08em; text-transform: uppercase; }
-.ld-tag { margin: -8px 0 6px; font-size: .78rem; letter-spacing: .22em; text-transform: uppercase; color: var(--gold); }
-
-/* the shot (27 Nov, made in Flow): a real iron strikes the ball, it flies right and lands as the page loads */
-.ld-shot { width: min(560px, 88vw, (100svh - 290px) * 1.78); min-width: 220px; aspect-ratio: 16 / 9; border-radius: 18px; overflow: hidden;
-  border: 1px solid rgba(255, 255, 255, .22); box-shadow: 0 24px 60px rgba(0, 0, 0, .45), inset 0 1px 0 rgba(255, 255, 255, .2); background: #2b4a1f; }
-.ld-vid { width: 100%; height: 100%; object-fit: cover; display: block; }
-[data-theme="night"] .ld-vid { filter: brightness(.74) saturate(.72) contrast(1.06) hue-rotate(14deg); }
-.ld-crest { width: 92px !important; height: 92px !important; }
-@media (max-width: 640px) { .ld-inner { gap: 10px; } .ld-crest { width: 76px !important; height: 76px !important; } .ld-name { font-size: 1.4rem; } }
+.ld-inner { display: grid; justify-items: center; gap: 12px; padding: 24px; width: min(620px, 100%); }
+.ld-name { margin: 0; font-family: var(--head); font-size: 1.6rem; letter-spacing: .08em; text-transform: uppercase; }
+.ld-tag { margin: -8px 0 4px; font-size: .78rem; letter-spacing: .22em; text-transform: uppercase; color: var(--gold); }
+.ld-range { width: min(560px, 88vw); aspect-ratio: 16 / 7; display: block; border-radius: 14px; background: #3f9a4c; }
 .ld-pct { font-family: var(--head); font-size: 1.1rem; letter-spacing: .1em; color: var(--gold-lt); font-variant-numeric: tabular-nums; }
-@media (prefers-reduced-motion: reduce) { .ld-crest { animation: none; } }
 
-/* ---------- Sun / moon switch ---------- */
+/* ---------- Real logo (client's badge) ---------- */
+.ld-crest, .brand-crest, .emblem-stamp { background: none; border: 0; overflow: hidden; padding: 0; border-radius: 50%; }
+.ld-crest img, .brand-crest img, .emblem-stamp img { width: 100%; height: 100%; display: block; border-radius: 50%; object-fit: cover; }
+.ld-crest { width: 96px; height: 96px; box-shadow: 0 0 0 6px rgba(232, 174, 56, .14); }
+.brand-crest { width: 44px; height: 44px; box-shadow: 0 0 0 2px rgba(232, 174, 56, .55); }
+.emblem-stamp { width: 128px; height: 128px; }
+
+/* ---------- Flat, full-width sections ---------- */
+body { background: var(--cream); }
+.sec-cream, .sec-paper, .sec-dark, .nights-sec {
+  width: auto; margin: 0; border-radius: 0; border: 0; box-shadow: none;
+  -webkit-backdrop-filter: none; backdrop-filter: none;
+}
+.sec-cream { background: var(--cream); }
+.sec-paper { background: var(--paper); }
+.sec-dark { background: var(--forest); }
+.pad-y { padding: clamp(48px, 5.5vw, 76px) 0; }
+.sec-lead { margin-bottom: 24px; }
+.h2-bar { margin: 12px 0 16px; }
+
+/* head row: heading left, one short line right on its baseline */
+.head-row { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: flex-end; gap: 8px 24px; margin-bottom: 24px; }
+.head-side { margin: 0; color: var(--muted); }
+
+/* ---------- Highlights bento ---------- */
+.bento { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); grid-template-rows: repeat(2, minmax(310px, auto)); gap: 16px; }
+.bt { position: relative; overflow: hidden; border-radius: var(--r); background: var(--forest); color: var(--light); display: flex; flex-direction: column; justify-content: flex-end; min-width: 0; }
+.bt > img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; transition: transform .5s cubic-bezier(.22, 1, .36, 1); }
+.bt:hover > img { transform: scale(1.03); }
+.bt-range { grid-column: 1 / 3; grid-row: 1 / 3; }
+.bt-pizza { grid-column: 3; grid-row: 1; }
+.bt-lapa { grid-column: 4; grid-row: 1; }
+.bt-wash { grid-column: 3 / 5; grid-row: 2; background: var(--wa-hover); flex-direction: row; align-items: center; gap: 20px; padding: 24px; }
+.bt-body { /* text over the photo sits in a frosted ice box (house standard) */
+  position: relative; margin: 12px; padding: 14px 16px 16px; border-radius: 14px;
+  background: rgba(7, 25, 16, .62); border: 1px solid rgba(255, 255, 255, .18);
+  -webkit-backdrop-filter: blur(8px); backdrop-filter: blur(8px);
+}
+.bt-wash .bt-body { margin: 0; padding: 0; background: none; border: 0; -webkit-backdrop-filter: none; backdrop-filter: none; }
+.bt-body .tri-kicker { color: var(--gold-lt); font-size: .72rem; }
+.bt-body h3 { margin: 4px 0 6px; font-family: var(--head); font-size: 1.35rem; line-height: 1.1; text-transform: uppercase; }
+.bt-range .bt-body h3 { font-size: 1.8rem; }
+.bt-body p { margin: 0 0 8px; font-size: .95rem; color: #E8EFEA; }
+.bt-link { display: inline-flex; align-items: center; gap: 6px; min-height: 44px; font-weight: 700; color: var(--gold-lt); text-decoration: none; }
+.bt-link span { transition: transform .2s ease; }
+.bt-link:hover span, .bt-link:focus-visible span { transform: translateX(3px); }
+.bt-link:hover { text-decoration: underline; text-underline-offset: 4px; }
+.bt-icon { width: 84px; height: 84px; flex-shrink: 0; }
+.chip-strip { margin-top: 18px; }
+@media (max-width: 960px) {
+  .bento { grid-template-columns: repeat(2, minmax(0, 1fr)); grid-template-rows: none; }
+  .bt-range { grid-column: 1 / -1; grid-row: auto; min-height: 380px; }
+  .bt-pizza, .bt-lapa { grid-column: auto; grid-row: auto; min-height: 300px; }
+  .bt-wash { grid-column: 1 / -1; grid-row: auto; }
+}
+@media (max-width: 600px) {
+  .bento { grid-template-columns: 1fr; gap: 12px; }
+  .bt-range { min-height: 420px; }
+  .bt-pizza, .bt-lapa { min-height: 320px; }
+  .bt-wash { padding: 20px; gap: 14px; align-items: flex-start; }
+  .bt-icon { width: 56px; height: 56px; }
+}
+
+/* ---------- Photo gallery (replaces the 380svh 3D reel) ---------- */
+.gal { display: grid; grid-template-columns: 1.4fr 1fr 1fr; grid-template-rows: 220px 220px; gap: 12px; }
+.gal-tile { position: relative; padding: 0; border: 0; border-radius: var(--r); overflow: hidden; cursor: zoom-in; background: var(--forest); min-width: 0; }
+.gal-tile img { width: 100%; height: 100%; object-fit: cover; transition: transform .5s cubic-bezier(.22, 1, .36, 1); }
+.gal-tile:hover img, .gal-tile:focus-visible img { transform: scale(1.03); }
+.gal-tile:focus-visible { outline: 3px solid var(--gold); outline-offset: 3px; }
+.gal-a { grid-row: 1 / 3; }
+.gal-d { grid-column: 2 / 4; }
+@media (max-width: 720px) {
+  .gal { grid-template-columns: 1fr 1fr; grid-template-rows: 240px 150px 150px; gap: 10px; }
+  .gal-a { grid-column: 1 / -1; grid-row: auto; }
+  .gal-d { grid-column: 1 / -1; }
+}
+
+/* ---------- Range game stage (range-game.js) ---------- */
+.stage-box { min-height: 0; background: #2d4a22; }
+#pitCanvas { min-height: 0; aspect-ratio: 16 / 9; height: auto; touch-action: pan-y; cursor: default; }
+.tee-pad { /* only this small zone over the ball takes the finger (swipe up to swing); the rest of the stage scrolls */
+  position: absolute; left: 50%; bottom: 64px; width: 120px; height: 110px; transform: translateX(-50%);
+  background: none; border: 0; border-radius: 50%; cursor: grab; touch-action: none;
+}
+.tee-pad:focus-visible { outline: 3px dashed var(--gold-lt); outline-offset: -6px; }
+.stage-callout, .power-bar-wrap { -webkit-backdrop-filter: blur(6px); backdrop-filter: blur(6px); }
+.power-bar-wrap { position: static; margin: 0; border-radius: 0; border-width: 1px 0 0; }
+@media (max-width: 640px) {
+  #pitCanvas { aspect-ratio: 4 / 3.4; }
+  .stage-overlay { top: 10px; left: 10px; right: 10px; }
+  .stage-callout { padding: 8px 12px; max-width: 70%; }
+  .stage-callout strong { font-size: 1.05rem; }
+  .stage-callout span { display: none; }
+  .mode-pills { flex-direction: column; }
+  .tee-pad { bottom: 30px; }
+}
+
+/* ---------- Sun / moon switch: photo-real golf ball ---------- */
 .theme-btn {
-  width: 44px; height: 44px; border-radius: 50%; flex-shrink: 0; cursor: pointer; padding: 0;
-  display: grid; place-items: center; color: var(--gold-lt);
-  background: rgba(7, 25, 16, .56); border: 1.5px solid rgba(255, 224, 153, .55);
+  width: 46px; height: 46px; border-radius: 50%; flex-shrink: 0; cursor: pointer; padding: 0;
+  display: grid; place-items: center; background: rgba(255, 255, 255, .14); border: 1.5px solid rgba(255, 255, 255, .45);
   transition: transform .18s ease, background .18s ease;
 }
 .theme-btn:hover, .theme-btn:focus-visible { transform: translateY(-2px); background: rgba(7, 25, 16, .8); }
-.theme-btn svg { grid-area: 1 / 1; width: 22px; height: 22px; transition: transform .5s cubic-bezier(.65, 0, .35, 1), opacity .3s; }
-.theme-btn .moon { opacity: 0; transform: rotate(-90deg) scale(.5); }
-[data-theme="night"] .theme-btn .sun { opacity: 0; transform: rotate(90deg) scale(.5); }
-[data-theme="night"] .theme-btn .moon { opacity: 1; transform: none; }
+.theme-btn .gball { position: relative; display: block; width: 34px; height: 34px; border-radius: 50%; overflow: hidden;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, .35); transition: transform .7s cubic-bezier(.65, 0, .35, 1), filter .7s ease;
+  filter: drop-shadow(0 0 6px rgba(255, 214, 102, .85)); }
+.theme-btn .gball img { width: 100%; height: 100%; display: block; }
+.theme-btn .gball-shade { position: absolute; inset: 0; border-radius: 50%; background: #0b1a2a; opacity: .82;
+  transform: translateX(-34px); transition: transform .7s cubic-bezier(.65, 0, .35, 1); }
+[data-theme="night"] .theme-btn .gball { transform: rotate(200deg); filter: drop-shadow(0 0 9px rgba(190, 215, 255, .9)) brightness(.96); }
+[data-theme="night"] .theme-btn .gball-shade { transform: translateX(-12px); }
 ::view-transition-old(root), ::view-transition-new(root) { animation: none; mix-blend-mode: normal; }
 .theme-fade body { transition: background-color .4s ease, color .4s ease; }
-@media (max-width: 420px) {
-  .brand-copy { display: none; }   /* room for the switch on small phones; the crest still reads EV */
-}
+@media (prefers-reduced-motion: reduce) { .theme-btn .gball, .theme-btn .gball-shade { transition: none; } }
 
-/* ---------- Night palette ---------- */
-[data-theme="night"] {
-  --ink: #FCF9F2; --muted: #C9D6CD; --ember: #F4A261;
-  color-scheme: dark;
-}
-[data-theme="night"] body { background: #061109; }
-[data-theme="night"] .golf-bg-photo { filter: brightness(.34) saturate(.55) hue-rotate(18deg) contrast(1.1); }
+/* ---------- Night palette: flat deep greens, same layout ---------- */
+[data-theme="night"] { --ink: #FCF9F2; --muted: #C9D6CD; --ember: #F4A261; color-scheme: dark; }
+[data-theme="night"] body, [data-theme="night"] .sec-cream { background: #0A1D12; }
+[data-theme="night"] .sec-paper { background: #0E2617; }
+[data-theme="night"] .sec-dark { background: #061109; }
 [data-theme="night"] .hero-bg img { filter: brightness(.55) saturate(.7) hue-rotate(12deg); }
-[data-theme="night"] .sec-cream, [data-theme="night"] .sec-paper { background: rgba(9, 28, 18, .88); }
-[data-theme="night"] :is(.tri-card, .menu-panel, .book-card, .rv-card, .info-card, .cnt-box, .info-chip, dialog.modal) {
+[data-theme="night"] .bt > img, [data-theme="night"] .gal-tile img { filter: brightness(.78) saturate(.85); }
+[data-theme="night"] .bt-wash { background: #123d24; }
+[data-theme="night"] :is(.menu-panel, .book-card, .rv-card, .info-card, .cnt-box, .info-chip, dialog.modal) {
   background: var(--forest-card); border-color: rgba(255, 224, 153, .16); color: var(--ink);
 }
 [data-theme="night"] :is(.cnt-btn, .close-btn, .p-opt) { background: rgba(255, 255, 255, .06); color: var(--ink); border-color: rgba(255, 224, 153, .28); }
 [data-theme="night"] :is(.cat-btn[aria-selected="true"], .p-opt[aria-pressed="true"]) { background: var(--gold); color: var(--forest-deep); border-color: var(--gold); }
 [data-theme="night"] .btn-ghost { border-color: rgba(255, 224, 153, .4); }
 [data-theme="night"] .btn-ghost:hover { background: var(--gold-lt); color: var(--forest-deep); }
+[data-theme="night"] :is(.snd:not([aria-pressed="true"]), .btn-ember, .score-card) { background: #8F2F06; }
+[data-theme="night"] .pass-box { background: rgba(255, 255, 255, .07); border-color: rgba(255, 224, 153, .2); }
 
 /* ---------- Polish ---------- */
 .hero-sub { /* frosted "ice" box for text over the photo */
@@ -74,113 +158,29 @@ html.ld-on, html.ld-on body { overflow: hidden; }
 .nfc-credit { margin: 14px 0 0; font-size: .8rem; color: var(--light-soft); opacity: .8; }
 .nfc-credit a { color: inherit; }
 html { -webkit-tap-highlight-color: transparent; }
-/* ember stays dark where it is a background (only ember *text* brightens at night) */
-[data-theme="night"] :is(.snd:not([aria-pressed="true"]), .btn-ember, .score-card) { background: #8F2F06; }
-/* laptops: keep the menu on one line */
 .nav a { white-space: nowrap; }
 @media (max-width: 1240px) { .nav a { padding: 0 8px; font-size: .84rem; } .brand-tag { display: none; } }
-@media (max-width: 1100px) { .nav li:nth-child(2) { display: none; } } /* "3D Reel" sits right under Highlights */
-[data-theme="night"] .pass-box { background: rgba(255, 255, 255, .07); border-color: rgba(255, 224, 153, .2); }
-.foot p a { display: inline-block; padding: 9px 0; }   /* 44px-ish tap rows on phones */
+@media (max-width: 1100px) { .nav li:nth-child(2) { display: none; } }
+@media (max-width: 420px) { .brand-copy { display: none; } }
+.foot p a { display: inline-block; padding: 9px 0; }
 
-/* ── Real logo (client's badge, 26 Nov) ── */
-.ld-crest, .brand-crest, .emblem-stamp { background: none; border: 0; overflow: hidden; padding: 0; }
-.ld-crest img, .brand-crest img, .emblem-stamp img { width: 100%; height: 100%; display: block; border-radius: 50%; object-fit: cover; }
-.ld-crest { width: 132px; height: 132px; }
-.brand-crest { width: 44px; height: 44px; box-shadow: 0 0 0 2px rgba(232, 174, 56, .55); }
-.emblem-stamp { width: 150px; height: 150px; }
-
-/* ── Phone: lean layout (user, 26 Nov: "very bloated" on mobile) ──
-   The bottom bar always has WhatsApp + Call, so the repeated per-card WhatsApp buttons, the top-bar WhatsApp chip and the
-   sound chip go; the owner's demo desk (sample bookings) is a desktop pitch piece, not something a guest needs on a phone. */
+/* ---------- Phone: lean layout (user, 26 Nov) ---------- */
 @media (max-width: 640px) {
-  .snd, .nav-wa { display: none; }
-  .brand-tag { display: none; }
-  .pad-y { padding: 44px 0; }
+  .snd, .nav-wa, .brand-tag { display: none; }
+  .pad-y { padding: 40px 0; }
   .sec-h2 { font-size: clamp(1.7rem, 8vw, 2.1rem); }
-  .sec-lead { font-size: .95rem; margin-bottom: 18px; }
+  .sec-lead { font-size: .95rem; margin-bottom: 16px; }
   .eyebrow { margin-bottom: 6px; }
   .h2-bar { margin: 10px 0 14px; }
-  .emblem-stamp { width: 112px; height: 112px; margin-bottom: 10px; }
+  .emblem-stamp { width: 104px; height: 104px; margin-bottom: 10px; }
   .hero-sub { font-size: .95rem; }
   .hero-ctas { gap: 10px; }
   .hero-ctas .btn-ghost { display: none; }
-  .tri-grid { gap: 14px; }
-  .tri-body { padding: 16px 18px 18px; gap: 6px; }
-  .tri-body p { margin: 0; }
-  .tri-card img { aspect-ratio: 16 / 9; }
+  .head-side { display: none; }
   main section:not(#home):not(#book):not(#visit) .btn-wa { display: none; }
-  #book .desk-card, #addToDeskBtn, #pngBtn { display: none; }
-}
-@media (max-width: 640px) {
-  .desk-only { display: none; }
+  #book .desk-card, #addToDeskBtn, #pngBtn, .desk-only { display: none; }
   .festoon-svg { height: 56px; margin-bottom: 6px; }
   .nights-grid { gap: 12px; }
   .night-card { padding: 16px 18px; gap: 4px; }
   .night-card h3 { font-size: 1.25rem; }
 }
-
-/* ── Golf-ball day/night switch (user, 26 Nov): a white ball by day; at night a shadow rolls across it and it glows
-   like a moon. The page-wide circular reveal still starts from this button (house.js). ── */
-.theme-btn { width: 46px; height: 46px; background: rgba(255, 255, 255, .14); border-color: rgba(255, 255, 255, .45);
-  -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px); }
-.theme-btn .gball { width: 34px; height: 34px; overflow: visible; transition: transform .7s cubic-bezier(.65, 0, .35, 1), filter .7s ease;
-  filter: drop-shadow(0 0 6px rgba(255, 214, 102, .85)) drop-shadow(0 2px 3px rgba(0, 0, 0, .35)); }
-.theme-btn .gball-shade { transform: translateX(-34px); transition: transform .7s cubic-bezier(.65, 0, .35, 1); opacity: .82; }
-[data-theme="night"] .theme-btn .gball { transform: rotate(200deg); filter: drop-shadow(0 0 9px rgba(190, 215, 255, .9)) brightness(.96); }
-[data-theme="night"] .theme-btn .gball-shade { transform: translateX(-12px); }
-@media (prefers-reduced-motion: reduce) { .theme-btn .gball, .theme-btn .gball-shade { transition: none; } }
-
-/* ── Iced-out glass (user, 26 Nov: "more iced out for the backgrounds") ──
-   Sections: clearer frosted glass over the range photo, a bright ice edge and a soft top sheen.
-   Cards inside: lighter ice panes instead of solid white. Night: smoky ice. */
-.sec-cream, .sec-paper {
-  background: linear-gradient(180deg, rgba(255, 255, 255, .78), rgba(250, 245, 234, .68));
-  -webkit-backdrop-filter: blur(22px) saturate(150%); backdrop-filter: blur(22px) saturate(150%);
-  border: 1px solid rgba(255, 255, 255, .85);
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, .9), 0 24px 60px rgba(5, 24, 13, .28);
-}
-.sec-dark, .reel-sec, .nights-sec {
-  -webkit-backdrop-filter: blur(22px) saturate(140%); backdrop-filter: blur(22px) saturate(140%);
-  border: 1px solid rgba(255, 255, 255, .22);
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, .18), 0 24px 60px rgba(5, 24, 13, .34);
-}
-.tri-card, .menu-panel, .book-card, .rv-card, .info-card, .map-card {
-  background: rgba(255, 255, 255, .62);
-  -webkit-backdrop-filter: blur(14px); backdrop-filter: blur(14px);
-  border: 1px solid rgba(255, 255, 255, .9);
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, .95), 0 14px 34px rgba(12, 38, 24, .1);
-}
-.pit-panel, .night-card {
-  background: rgba(255, 255, 255, .07);
-  -webkit-backdrop-filter: blur(14px); backdrop-filter: blur(14px);
-  border: 1px solid rgba(255, 255, 255, .2);
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, .14);
-}
-[data-theme="night"] .sec-cream, [data-theme="night"] .sec-paper {
-  background: linear-gradient(180deg, rgba(14, 34, 24, .78), rgba(8, 24, 16, .74));
-  border-color: rgba(190, 215, 255, .22); box-shadow: inset 0 1px 0 rgba(190, 215, 255, .16), 0 24px 60px rgba(0, 0, 0, .4);
-}
-[data-theme="night"] .tri-card, [data-theme="night"] .menu-panel, [data-theme="night"] .book-card,
-[data-theme="night"] .rv-card, [data-theme="night"] .info-card, [data-theme="night"] .map-card {
-  background: rgba(255, 255, 255, .06); border-color: rgba(190, 215, 255, .2); box-shadow: inset 0 1px 0 rgba(190, 215, 255, .14);
-}
-
-/* -- 27 Nov (user): sections stack like sheets: each card scrolls fully into view, pins, and the next slides over it.
-   top/z-index are set per section in house.js (top = viewport minus card height, so tall cards still show their bottom). */
-@media (prefers-reduced-motion: no-preference) {
-  main > section:not(.hero) { position: sticky; }
-  main > section.sheet-covered { filter: brightness(.82); transition: filter .4s ease; }
-}
-main > section:not(.hero) { box-shadow: inset 0 1px 0 rgba(255, 255, 255, .5), 0 -14px 40px rgba(5, 24, 13, .28); }
-
-/* -- 27 Nov (user): the range photo behind the page moves: slow breathing zoom + gentle drift with scroll (translate set in house.js) */
-.golf-bg-photo { transform-origin: 50% 60%; scale: 1.1; }
-@media (prefers-reduced-motion: no-preference) {
-  .golf-bg-photo { animation: ev-drift 36s ease-in-out infinite alternate; }
-}
-@keyframes ev-drift { from { scale: 1.1; } to { scale: 1.18; } }
-/* -- 27 Nov (user): photo-real golf ball in the day/night switch (img/golf-ball.webp, made in Flow) */
-.theme-btn .gball { position: relative; display: block; border-radius: 50%; overflow: hidden; box-shadow: 0 2px 6px rgba(0, 0, 0, .35); }
-.theme-btn .gball img { width: 100%; height: 100%; display: block; }
-.theme-btn .gball-shade { position: absolute; inset: 0; border-radius: 50%; background: #0b1a2a; }
